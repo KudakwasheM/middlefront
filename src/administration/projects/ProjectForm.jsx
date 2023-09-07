@@ -24,6 +24,7 @@ const ProjectForm = () => {
     location: "",
     mobile: "",
     industry: [],
+
     expected_fund: null,
     raised_fund: null,
     investor_percentage: null,
