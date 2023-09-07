@@ -5,7 +5,7 @@ import ReactPaginate from "react-paginate";
 import { useGetAllProjectsQuery } from "../../slices/projectsApiSlice";
 import axiosClient from "../../axiosClient";
 import { toast } from "react-toastify";
-import { InfinitySpin } from "react-loader-spinner";
+import CustomLoader from "../components/CustomLoader";
 
 const Proposals = () => {
   const [projects, setProjects] = useState([]);
@@ -58,10 +58,7 @@ const Proposals = () => {
         </div>
       </div>
       {loading ? (
-        <div className="flex flex-col justify-center items-center">
-          <InfinitySpin width="200" color="#4fa94d" />
-          <p className="text-[#4fa94d] text-lg">Loading...</p>
-        </div>
+        <CustomLoader />
       ) : (
         <div className="lg:w-[1200px] grid grid-cols-3 gap-5 mx-auto px-5 lg:px-24 py-10">
           {currentItems.map((project) => {
@@ -141,7 +138,6 @@ const Proposals = () => {
             "bg-[rgb(0,223,154)] text-white border-[rgb(0,223,154)]"
           }
         />
-        {/* {projectsList} */}
       </div>
     </div>
   );

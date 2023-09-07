@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { roles } from "../../layouts/constants/Roles";
 import { GrFormClose } from "react-icons/gr";
 import axiosClient from "../../axiosClient";
-import { InfinitySpin } from "react-loader-spinner";
+import CustomLoader from "../../Guests/components/CustomLoader";
 
 const UsersForm = () => {
   const [name, setName] = useState("");
@@ -99,10 +99,7 @@ const UsersForm = () => {
   return (
     <>
       {loadUser ? (
-        <div className="flex flex-col justify-center items-center">
-          <InfinitySpin width="200" color="#4fa94d" />
-          <p className="text-[#4fa94d] text-lg">Loading User Details...</p>
-        </div>
+        <CustomLoader />
       ) : (
         <div className="w-[400px] mx-auto m-5 p-4 border">
           <form>

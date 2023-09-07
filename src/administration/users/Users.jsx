@@ -12,9 +12,9 @@ import SearchBar from "../components/SearchBar";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { getUsers } from "../../slices/usersSlice";
-import { InfinitySpin } from "react-loader-spinner";
 import axios from "axios";
 import axiosClient from "../../axiosClient";
+import CustomLoader from "../../Guests/components/CustomLoader";
 
 const Users = () => {
   // const { data, isLoading, isSuccess, isError, error } = useGetAllUsersQuery();
@@ -88,10 +88,7 @@ const Users = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
       {loading ? (
-        <div className="flex flex-col justify-center items-center">
-          <InfinitySpin width="200" color="#4fa94d" />
-          <p className="text-[#4fa94d] text-lg">Loading...</p>
-        </div>
+        <CustomLoader />
       ) : (
         <>
           {currentItems ? (

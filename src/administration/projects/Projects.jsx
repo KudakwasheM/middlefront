@@ -8,10 +8,10 @@ import {
   AiOutlineEye,
   AiOutlineUserAdd,
 } from "react-icons/ai";
-import { InfinitySpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import ReactPaginate from "react-paginate";
 import axiosClient from "../../axiosClient";
+import CustomLoader from "../../Guests/components/CustomLoader";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -81,10 +81,7 @@ const Projects = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
       {loading ? (
-        <div className="flex flex-col justify-center items-center">
-          <InfinitySpin width="200" color="#4fa94d" />
-          <p className="text-[#4fa94d] text-lg">Loading...</p>
-        </div>
+        <CustomLoader />
       ) : (
         <>
           {currentItems ? (

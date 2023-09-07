@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 const Testimonial = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log(slides);
   const slideTestimonial = () => {
     setTimeout(() => {
       const isLast = currentIndex === slides.length - 1;

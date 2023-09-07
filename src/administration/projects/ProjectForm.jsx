@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useGetEnterpreneursQuery } from "../../slices/usersApiSlice";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import axiosClient from "../../axiosClient";
-import { InfinitySpin } from "react-loader-spinner";
+import CustomLoader from "../../Guests/components/CustomLoader";
 
 const ProjectForm = () => {
   const { id } = useParams();
@@ -245,10 +245,7 @@ const ProjectForm = () => {
         </button>
       </div>
       {loading ? (
-        <div className="flex flex-col justify-center items-center">
-          <InfinitySpin width="200" color="#4fa94d" />
-          <p className="text-[#4fa94d] text-lg">Loading...</p>
-        </div>
+        <CustomLoader />
       ) : (
         <div className="m-5 p-4 w-[500px] mx-auto border">
           <Tabs>

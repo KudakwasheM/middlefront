@@ -1,6 +1,7 @@
 import React from "react";
+import { InfinitySpin } from "react-loader-spinner";
 
-const Loader = () => {
+const CustomLoader = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <InfinitySpin width="200" color="#4fa94d" />
@@ -9,4 +10,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default CustomLoader;

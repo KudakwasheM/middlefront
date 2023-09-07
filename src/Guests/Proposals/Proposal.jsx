@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import axiosClient from "../../axiosClient";
-import { InfinitySpin } from "react-loader-spinner";
+import CustomLoader from "../components/CustomLoader";
 
 const Proposal = () => {
   const { id } = useParams();
@@ -33,10 +33,7 @@ const Proposal = () => {
   return (
     <div className="w-full">
       {loading ? (
-        <div className="flex flex-col justify-center items-center my-10">
-          <InfinitySpin width="200" color="#4fa94d" />
-          <p className="text-[#4fa94d] text-lg">Loading...</p>
-        </div>
+        <CustomLoader />
       ) : (
         <>
           <div className="banner h-[50vh]">

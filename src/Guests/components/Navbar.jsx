@@ -95,18 +95,53 @@ const Navbar = ({ route }) => {
           </div>
           <ul className="uppercase p-4">
             <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-              Home
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                    : ""
+                }
+              >
+                Home
+              </NavLink>
             </li>
-            {/* <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-            Company
-          </li> */}
             <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-              Projects
+              <NavLink
+                to="/proposals"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                    : ""
+                }
+              >
+                Proposals
+              </NavLink>
             </li>
             <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-              About
+              <NavLink
+                to="/investors"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                    : ""
+                }
+              >
+                Investors
+              </NavLink>
             </li>
-            <li className="p-4 hover:text-[rgb(0,223,154)]">Contact</li>
+            <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
+              <NavLink
+                to="/testimonials"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                    : ""
+                }
+              >
+                Testimonials
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

@@ -56,9 +56,11 @@ const Investors = () => {
                         {investor.details.maximum}
                       </div>
                       <p className="text-gray-700">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit. Beatae omnis est velit. Blanditiis adipisci
-                        molestias architecto omnis fugit vel harum.
+                        {investor.details.description
+                          .split(" ")
+                          .splice(0, 20)
+                          .join(" ")}
+                        ...
                       </p>
 
                       <div className="mt-5">
@@ -79,7 +81,9 @@ const Investors = () => {
           )}
         </div>
         <div className="text-center">
-          <Link className="text-blue-400 p-10 hover:underline">View more</Link>
+          <Link to="/investors" className="text-blue-400 p-10 hover:underline">
+            View more
+          </Link>
         </div>
       </div>
     </div>

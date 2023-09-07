@@ -5,10 +5,10 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import axiosClient from "../../axiosClient";
 import { toast } from "react-toastify";
+import CustomLoader from "../components/CustomLoader";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
-  const [details, setDetails] = useState();
   const [loading, setLoading] = useState(false);
 
   const getProjects = async () => {
@@ -24,9 +24,6 @@ const Projects = () => {
         toast.error(err?.response?.message);
       });
   };
-  let per = "80%";
-  let per1 = "15%";
-  let per2 = "45%";
 
   useEffect(() => {
     getProjects();
@@ -40,112 +37,78 @@ const Projects = () => {
         Browse our latest exciting startup pitches and connect with
         entrepreneurs to discuss further.
       </p>
-      {/* <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mx-5 lg:mx-20 my-10">
-        <> */}
-      {projects.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-5 lg:mx-20 my-10">
-          {/* <div className="flex flex-col border rounded-lg bg-[rgba(0,223,154,0.05)] hover:shadow-lg">
-          <div className="h-32">No Image</div>
-          <div className="w-full bg-slate-500 h-[3px]">
-            <div
-              className="bg-[rgb(0,223,154)] h-full"
-              style={{ width: `${per1}` }}
-            ></div>
-          </div>
-          <div className="p-3">
-            <h2 className="font-semibold mb-2">Project Name</h2>
-            <p className="mb-2 flex items-center text-sm">
-              <GoLocation size={18} className="text-blue-500" />
-              <span className="ml-1">Harare</span>
-            </p>
-            <p className="text-gray-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-              animi illum ipsam maxime quas perspiciatis deserunt esse ex.
-              Consequatur rem atque dolore, corporis quasi mollitia fugit hic
-              animi. Eum id consectetur sed quisquam assumenda magnam ullam
-              velit, esse dolor dolorem dicta nam reiciendis earum reprehenderit
-              error odio fugiat quis? Quo.
-            </p>
-            <div className="flex mt-5 gap-10">
-              <div className="flex flex-col">
-                <p className="text-sm">Target</p>
-                <h3 className="font-semibold">US$ 8,400</h3>
-              </div>
-              <div className="flex flex-col">
-                <p className="text-sm">Investors' Percentage</p>
-                <h3 className="font-semibold">65%</h3>
-              </div>
-            </div>
-            <div className="mt-5">
-              <Link
-                to="/proposals/id"
-                className="bg-[rgba(0,223,154,0.75)] hover:bg-[rgba(0,223,154,1)] py-2 px-3 text-white text-sm rounded"
-              >
-                Find Out More
-              </Link>
-            </div>
-          </div>
-        </div> */}
-          {projects.map((project) => {
-            return (
-              <div
-                className="flex flex-col border rounded-lg bg-white h-auto hover:shadow-xl"
-                key={project._id}
-              >
-                <div className="h-32">No Image</div>
-                <div className="w-full bg-slate-500 h-[3px]">
-                  <div
-                    className="bg-[rgb(0,223,154)] h-full"
-                    style={{
-                      width:
-                        (project.raised_fund / project.expected_fund) * 100 +
-                        "%",
-                    }}
-                  ></div>
-                </div>
-                <div className="p-3">
-                  <h2 className="font-semibold mb-2">{project.name}</h2>
-                  <p className="mb-2 flex items-center text-sm">
-                    <GoLocation size={18} className="text-blue-500" />
-                    <span className="ml-1">{project.location}</span>
-                  </p>
-                  <p className="text-gray-700">
-                    {project.details.short_summary
-                      .split(" ")
-                      .splice(0, 50)
-                      .join(" ")}
-                    ...
-                  </p>
-                  <div className="flex mt-5 gap-10">
-                    <div className="flex flex-col">
-                      <p className="text-sm">Target</p>
-                      <h3 className="font-semibold">
-                        US$ {project.expected_fund}
-                      </h3>
-                    </div>
-                    <div className="flex flex-col">
-                      <p className="text-sm">Investors' Percentage</p>
-                      <h3 className="font-semibold">
-                        {project.investor_percentage}%
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="mt-5">
-                    <Link
-                      to={`/proposals/${project._id}`}
-                      className="bg-[rgba(0,223,154,0.75)] hover:bg-[rgba(0,223,154,1)] py-2 px-3 text-white text-sm rounded"
-                    >
-                      Find Out More
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      {loading ? (
+        <CustomLoader />
       ) : (
-        <p className="text-xl font-bold text-center py-5">No projects found</p>
+        <>
+          {projects.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-5 lg:mx-20 my-10">
+              {projects.map((project) => {
+                return (
+                  <div
+                    className="flex flex-col border rounded-lg bg-white h-auto hover:shadow-xl"
+                    key={project._id}
+                  >
+                    <div className="h-32">No Image</div>
+                    <div className="w-full bg-slate-500 h-[3px]">
+                      <div
+                        className="bg-[rgb(0,223,154)] h-full"
+                        style={{
+                          width:
+                            (project.raised_fund / project.expected_fund) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
+                    </div>
+                    <div className="p-3">
+                      <h2 className="font-semibold mb-2">{project.name}</h2>
+                      <p className="mb-2 flex items-center text-sm">
+                        <GoLocation size={18} className="text-blue-500" />
+                        <span className="ml-1">{project.location}</span>
+                      </p>
+                      <p className="text-gray-700">
+                        {project.details.short_summary
+                          .split(" ")
+                          .splice(0, 50)
+                          .join(" ")}
+                        ...
+                      </p>
+                      <div className="flex mt-5 gap-10">
+                        <div className="flex flex-col">
+                          <p className="text-sm">Target</p>
+                          <h3 className="font-semibold">
+                            US$ {project.expected_fund}
+                          </h3>
+                        </div>
+                        <div className="flex flex-col">
+                          <p className="text-sm">Investors' Percentage</p>
+                          <h3 className="font-semibold">
+                            {project.investor_percentage}%
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="mt-5">
+                        <Link
+                          to={`/proposals/${project._id}`}
+                          className="bg-[rgba(0,223,154,0.75)] hover:bg-[rgba(0,223,154,1)] py-2 px-3 text-white text-sm rounded"
+                        >
+                          Find Out More
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="text-xl font-bold text-center py-5">
+              No projects found
+            </p>
+          )}
+        </>
       )}
+
       {/* </> */}
       {/* </div> */}
       <div className="text-center py-10">
