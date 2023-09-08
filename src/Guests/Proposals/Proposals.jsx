@@ -60,7 +60,7 @@ const Proposals = () => {
       {loading ? (
         <CustomLoader />
       ) : (
-        <div className="lg:w-[1200px] grid grid-cols-3 gap-5 mx-auto px-5 lg:px-24 py-10">
+        <div className="lg:max-w-[1200px] lg:w-[1200px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto px-5 lg:px-24 py-10">
           {currentItems.map((project) => {
             return (
               <div className="flex flex-col border rounded-lg shadow-md hover:shadow-2xl">

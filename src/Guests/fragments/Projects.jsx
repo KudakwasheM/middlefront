@@ -17,6 +17,7 @@ const Projects = () => {
       .get("/projects")
       .then((res) => {
         setLoading(false);
+        console.log(res?.data);
         setProjects(res?.data?.projects.splice(3));
       })
       .catch((err) => {
@@ -42,7 +43,7 @@ const Projects = () => {
       ) : (
         <>
           {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-5 lg:mx-20 my-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mx-5 lg:mx-20 my-10">
               {projects.map((project) => {
                 return (
                   <div

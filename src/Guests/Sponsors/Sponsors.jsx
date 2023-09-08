@@ -46,7 +46,7 @@ const Sponsors = () => {
           </div>
         </div>
       </div>
-      <div className="lg:w-[1200px] grid grid-cols-3 gap-5 mx-auto px-5 lg:px-24 py-10 text-center">
+      <div className="lg:w-[1200px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto px-3 sm:px-5 lg:px-24 py-10 text-center">
         {loading ? (
           <CustomLoader />
         ) : (

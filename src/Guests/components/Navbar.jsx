@@ -63,6 +63,7 @@ const Navbar = ({ route }) => {
                   ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
                   : ""
               }
+              onClick={handleNav}
             >
               Testimonials
             </NavLink>
@@ -84,7 +85,7 @@ const Navbar = ({ route }) => {
         <div
           className={
             !nav
-              ? "fixed left-0 top-0 h-full w-[60%] border-r border-r-[rgba(0,223,154,0.1)] bg-white ease-in-out duration-500"
+              ? "fixed left-0 top-0 h-[100vh] w-[60%] border-r border-r-[rgba(0,223,154,0.1)] bg-white ease-in-out duration-500"
               : "fixed left-[-100%]"
           }
         >
@@ -93,56 +94,67 @@ const Navbar = ({ route }) => {
               Middle.
             </h1>
           </div>
-          <ul className="uppercase p-4">
-            <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
-                    : ""
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-              <NavLink
-                to="/proposals"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
-                    : ""
-                }
-              >
-                Proposals
-              </NavLink>
-            </li>
-            <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-              <NavLink
-                to="/investors"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
-                    : ""
-                }
-              >
-                Investors
-              </NavLink>
-            </li>
-            <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
-              <NavLink
-                to="/testimonials"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
-                    : ""
-                }
-              >
-                Testimonials
-              </NavLink>
-            </li>
-          </ul>
+          <div className="flex flex-col justify-between">
+            <ul className="uppercase p-4">
+              <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                      : ""
+                  }
+                  onClick={handleNav}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
+                <NavLink
+                  to="/proposals"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                      : ""
+                  }
+                  onClick={handleNav}
+                >
+                  Proposals
+                </NavLink>
+              </li>
+              <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
+                <NavLink
+                  to="/investors"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                      : ""
+                  }
+                  onClick={handleNav}
+                >
+                  Investors
+                </NavLink>
+              </li>
+              <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
+                <NavLink
+                  to="/testimonials"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
+                      : ""
+                  }
+                  onClick={handleNav}
+                >
+                  Testimonials
+                </NavLink>
+              </li>
+            </ul>
+            <Link to="/login" className="ml-5 flex ">
+              <p className="py-2 px-3 bg-[rgba(0,223,154,0.08)] flex-start hover:text-[rgba(0,223,154,0.59)] rounded-full">
+                Account
+              </p>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -8,10 +8,10 @@ const Hero = () => {
           <h2 className="xl:text-4xl md:text-3xl sm:text-2xl text-xl">
             Connecting Great Minds and Awesome Investors
           </h2>
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl text-[rgb(0,223,154)] font-bold">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl text-[rgb(0,223,154)] font-bold">
             The Middle.
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl">
+          <p className="text-base sm:text-xl md:text-2xl">
             Where great businesses and great people meet. We bring together
             businesses looking for investment and investors with the capital,
             contacts and knowledge to help them succeed.
