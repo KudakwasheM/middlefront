@@ -37,7 +37,7 @@ const Users = () => {
       : user.role.toLowerCase().includes(search.toLowerCase());
   });
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 12;
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = filteredUsers.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(filteredUsers.length / itemsPerPage);

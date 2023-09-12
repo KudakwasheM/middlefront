@@ -61,7 +61,6 @@ const Register = () => {
           password,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
-        console.log(res);
         // navigate("/");
       } catch (err) {
         toast.error(err?.data?.message || err.error);

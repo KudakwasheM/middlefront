@@ -12,11 +12,11 @@ const Footer = () => {
   return (
     <div className="w-full bg-[rgb(0,223,154)]">
       <div className="max-w-[1200px] mx-auto py-10 px-5">
-        <div className="grid sm:grid-cols-4 gap-5 border-b">
-          <div className="col-span-3 py-10">
+        <div className="flex flex-col sm:grid grid-cols-4 gap-5 border-b">
+          <div className="col-span-3  sm:py-10">
             <h1 className="text-white text-5xl font-bold">Middle.</h1>
           </div>
-          <div className=" flex justify-around items-center py-2 col-span-1">
+          <div className="flex justify-around items-center py-2 col-span-1">
             <div className="bg-white p-2 rounded-full">
               <AiOutlineFacebook size={30} className="text-[rgb(0,223,154)]" />
             </div>
@@ -31,7 +31,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 text-white py-5">
+        <div className="flex flex-col gap-3 justify-between md:grid grid-cols-3 text-white py-5">
           <div className="flex flex-col">
             <h2 className="text-lg mb-3">Navigation</h2>
             <Link className="text-sm">About Us</Link>
@@ -46,7 +46,7 @@ const Footer = () => {
           </div>
           <div></div>
         </div>
-        <div className="flex justify-between py-5 text-white text-sm">
+        <div className="flex sm:flex-row flex-col gap-5 justify-between py-5 text-white text-sm">
           <Link to="/terms" className="">
             Terms and conditions
           </Link>

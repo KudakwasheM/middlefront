@@ -39,7 +39,6 @@ const Projects = () => {
     await axiosClient
       .get("/projects")
       .then((res) => {
-        console.log(res?.data?.projects);
         setLoading(false);
         setProjects(res?.data?.projects);
       })
@@ -90,73 +89,78 @@ const Projects = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 py-3">
                   {currentItems.map((project) => {
                     return (
-                      <div>
-                        <div
-                          className="flex flex-col border rounded-lg bg-white h-auto hover:shadow-xl"
-                          key={project._id}
-                        >
-                          <div className="h-32">No Image</div>
-                          <div className="w-full bg-slate-500 h-[3px]">
-                            <div
-                              className="bg-[rgb(0,223,154)] h-full"
-                              style={{
-                                width:
-                                  (project.raised_fund /
-                                    project.expected_fund) *
-                                    100 +
-                                  "%",
-                              }}
-                            ></div>
-                          </div>
+                      <div
+                        className="flex flex-col border rounded-lg bg-white h-[520px] hover:shadow-xl"
+                        key={project._id}
+                      >
+                        <div className="h-32">No Image</div>
+                        <div className="w-full bg-slate-500 h-[3px]">
+                          <div
+                            className="bg-[rgb(0,223,154)] h-full"
+                            style={{
+                              width:
+                                (project.raised_fund / project.expected_fund) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
+                        </div>
 
-                          <div className="p-3">
-                            <h2 className="font-semibold mb-2">
-                              {project.name}
-                            </h2>
-                            <p className="mb-2 flex items-center text-sm">
-                              <GoLocation size={18} className="text-blue-500" />
-                              <span className="ml-1">{project.location}</span>
-                            </p>
-                            <p className="text-gray-700">
-                              {project.details.short_summary}
-                            </p>
-                            <div className="flex mt-5 gap-10">
-                              <div className="flex flex-col">
-                                <p className="text-sm">Target</p>
-                                <h3 className="font-semibold">
-                                  US$ {project.expected_fund}
-                                </h3>
-                              </div>
-                              <div className="flex flex-col">
-                                <p className="text-sm">Investors' Percentage</p>
-                                <h3 className="font-semibold">
-                                  {project.investor_percentage}%
-                                </h3>
-                              </div>
+                        <div className="p-3">
+                          <h2 className="font-semibold mb-2">{project.name}</h2>
+                          <p className="mb-2 flex items-center text-sm">
+                            <GoLocation size={18} className="text-blue-500" />
+                            <span className="ml-1">{project.location}</span>
+                          </p>
+                          <p className="text-gray-700">
+                            {project.details ? (
+                              <>
+                                {project.details.short_summary
+                                  .split(" ")
+                                  .splice(0, 45)
+                                  .join(" ")}
+                                ...
+                              </>
+                            ) : (
+                              <>No details</>
+                            )}
+                          </p>
+                          <div className="flex mt-5 gap-10">
+                            <div className="flex flex-col">
+                              <p className="text-sm">Target</p>
+                              <h3 className="font-semibold">
+                                US$ {project.expected_fund}
+                              </h3>
                             </div>
-                            <div className="flex justify-around  border-t pt-3 mt-3">
-                              <Link to={`/admin/projects/${project._id}`}>
-                                <AiOutlineEye
-                                  size={22}
-                                  title="View"
-                                  className="text-green-500"
-                                />
-                              </Link>
-                              <Link to={`/admin/projects/edit/${project._id}`}>
-                                <AiOutlineEdit
-                                  size={22}
-                                  title="Edit"
-                                  className="text-sky-500"
-                                />
-                              </Link>
-                              <Link>
-                                <AiOutlineDelete
-                                  size={22}
-                                  title="Delete"
-                                  className="text-red-500"
-                                />
-                              </Link>
+                            <div className="flex flex-col">
+                              <p className="text-sm">Investors' Percentage</p>
+                              <h3 className="font-semibold">
+                                {project.investor_percentage}%
+                              </h3>
                             </div>
+                          </div>
+                          <div className="flex justify-around  border-t pt-3 mt-3">
+                            <Link to={`/admin/projects/${project._id}`}>
+                              <AiOutlineEye
+                                size={22}
+                                title="View"
+                                className="text-green-500"
+                              />
+                            </Link>
+                            <Link to={`/admin/projects/edit/${project._id}`}>
+                              <AiOutlineEdit
+                                size={22}
+                                title="Edit"
+                                className="text-sky-500"
+                              />
+                            </Link>
+                            <Link>
+                              <AiOutlineDelete
+                                size={22}
+                                title="Delete"
+                                className="text-red-500"
+                              />
+                            </Link>
                           </div>
                         </div>
                       </div>

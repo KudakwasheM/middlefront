@@ -22,6 +22,9 @@ import Projects from "./administration/projects/Projects";
 import ProjectForm from "./administration/projects/ProjectForm";
 import Investors from "./administration/investors/Investors";
 import User from "./administration/users/User";
+import Funds from "./administration/funds/Funds";
+import FundsForm from "./administration/funds/FundsForm";
+import Fund from "./administration/funds/Fund";
 
 const router = createBrowserRouter([
   {
@@ -44,8 +47,13 @@ const router = createBrowserRouter([
       { path: "/admin", element: <Navigate to="/admin/dashboard" /> },
       { path: "dashboard", element: <AdminDash /> },
       { path: "projects", element: <Projects /> },
+      { path: "projects/:id", element: <Projects /> },
       { path: "projects/create", element: <ProjectForm /> },
       { path: "projects/edit/:id", element: <ProjectForm /> },
+      { path: "funds", element: <Funds /> },
+      { path: "funds/:id", element: <Fund /> },
+      { path: "funds/create", element: <FundsForm /> },
+      { path: "funds/edit/:id", element: <FundsForm /> },
       { path: "investors", element: <Investors /> },
       { path: "users", element: <Users /> },
       { path: "users/:id", element: <User /> },

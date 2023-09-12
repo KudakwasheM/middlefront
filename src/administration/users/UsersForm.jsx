@@ -29,7 +29,6 @@ const UsersForm = () => {
     e.preventDefault();
     setLoading(true);
     if (user._id !== "") {
-      console.log(user._id);
       await axiosClient
         .put(`/users/${user._id}`)
         .then((res) => {
@@ -54,7 +53,6 @@ const UsersForm = () => {
           setLoading(false);
           toast.success(res.message);
           navigate("/admin/users");
-          console.log(res);
         })
         .catch((err) => {
           setLoading(false);
@@ -79,7 +77,6 @@ const UsersForm = () => {
   //         password,
   //       }).unwrap();
   //       dispatch(addUser({ ...res }));
-  //       console.log("Wassup");
   //     } catch (err) {
   //       toast.error(err?.data?.message || err.error);
   //     }

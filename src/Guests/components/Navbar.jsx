@@ -63,7 +63,6 @@ const Navbar = ({ route }) => {
                   ? "border-b-2 border-[rgb(0,223,154)] pb-2 text-[rgb(0,223,154)]"
                   : ""
               }
-              onClick={handleNav}
             >
               Testimonials
             </NavLink>

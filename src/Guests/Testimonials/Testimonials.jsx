@@ -52,7 +52,7 @@ const Testimonials = () => {
           </div>
         </div>
       </div>
-      <div className="lg:max-w-[1200px] lg:w-[1200px] columns-3 gap-5 space-y-3 mx-auto px-5 lg:px-24 py-10 text-center">
+      <div className="lg:max-w-[1200px] lg:w-[1200px] columns-1 sm:columns-2 md:columns-3 gap-5 space-y-3 mx-auto px-5 lg:px-24 py-10 text-center">
         {/* <div className="lg:max-w-[1200px] lg:w-[1200px] grid grid-cols-3 gap-5 mx-auto px-5 lg:px-24 py-10 text-center"> */}
         {newArray.length > 0 ? (
           <>

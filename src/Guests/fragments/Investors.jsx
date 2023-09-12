@@ -14,7 +14,6 @@ const Investors = () => {
       .get("/users/investors")
       .then((res) => {
         setLoading(false);
-        console.log(res?.data?.users);
         setInvestors(res?.data?.users);
       })
       .catch((err) => {

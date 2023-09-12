@@ -18,7 +18,7 @@ const Projects = () => {
       .then((res) => {
         setLoading(false);
         console.log(res?.data);
-        setProjects(res?.data?.projects.splice(3));
+        setProjects(res?.data?.projects.splice(-3));
       })
       .catch((err) => {
         setLoading(false);
@@ -69,11 +69,17 @@ const Projects = () => {
                         <span className="ml-1">{project.location}</span>
                       </p>
                       <p className="text-gray-700">
-                        {project.details.short_summary
-                          .split(" ")
-                          .splice(0, 50)
-                          .join(" ")}
-                        ...
+                        {project.details ? (
+                          <>
+                            {project.details.short_summary
+                              .split(" ")
+                              .splice(0, 50)
+                              .join(" ")}
+                            ...
+                          </>
+                        ) : (
+                          <>No details</>
+                        )}
                       </p>
                       <div className="flex mt-5 gap-10">
                         <div className="flex flex-col">

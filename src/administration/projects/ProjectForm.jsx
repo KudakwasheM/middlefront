@@ -24,7 +24,6 @@ const ProjectForm = () => {
     location: "",
     mobile: "",
     industry: [],
-
     expected_fund: null,
     raised_fund: null,
     investor_percentage: null,
@@ -141,7 +140,9 @@ const ProjectForm = () => {
         .put(`/projects/${id}`, proj)
         .then((res) => {
           setLoadProject(false);
-          console.log(res);
+          id = res.data.project._id;
+          console.log(id);
+          toast.success(res?.data?.message);
         })
         .catch((err) => {
           setLoadProject(false);
@@ -152,9 +153,9 @@ const ProjectForm = () => {
       await axiosClient
         .post("/projects", proj)
         .then((res) => {
+          console.log(id);
           setLoadProject(false);
-          console.log(res);
-          toast.error(res?.data?.message);
+          toast.success(res?.data?.message);
         })
         .catch((err) => {
           setLoadProject(false);
@@ -165,15 +166,13 @@ const ProjectForm = () => {
 
   const saveDetails = async (e) => {
     e.preventDefault();
-    console.log(detailsId);
     if (detailsId) {
-      console.log("Muno");
       setLoadDetails(true);
       await axiosClient
         .put(`/details/${detailsId}`, details)
         .then((res) => {
           setLoadDetails(false);
-          console.log(res);
+          toast.success(res?.data?.message);
         })
         .catch((err) => {
           setLoadDetails(false);
@@ -182,10 +181,10 @@ const ProjectForm = () => {
     } else {
       setLoadDetails(true);
       await axiosClient
-        .put(`/details${detailsId}`, details)
+        .put(`/details`, details)
         .then((res) => {
           setLoadDetails(false);
-          console.log(res);
+          toast.success(res?.data?.message);
         })
         .catch((err) => {
           setLoadDetails(false);
@@ -198,10 +197,9 @@ const ProjectForm = () => {
     e.preventDefault();
     setLoadMember(true);
     await axiosClient
-      .post("/details", details)
+      .post("/members", teamMember)
       .then((res) => {
         setLoadMember(false);
-        console.log(res);
       })
       .catch((err) => {
         setLoadMember(false);
@@ -488,7 +486,7 @@ const ProjectForm = () => {
                       type="text"
                       className="border p-2"
                       placeholder="Enter your project name"
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setTeamMember({ name: e.target.value })}
                     />
                   </div>
                   <div className="flex flex-col mb-2">
@@ -497,7 +495,9 @@ const ProjectForm = () => {
                       type="text"
                       className="border p-2"
                       placeholder="Enter your text"
-                      onChange={(e) => setWebsite(e.target.value)}
+                      onChange={(e) =>
+                        setTeamMember({ position: e.target.value })
+                      }
                     />
                   </div>
                   <div className="flex flex-col mb-2">
@@ -505,7 +505,9 @@ const ProjectForm = () => {
                     <textarea
                       className="border p-2"
                       placeholder="Enter your project name"
-                      onChange={(e) => setWebsite(e.target.value)}
+                      onChange={(e) =>
+                        setTeamMember({ description: e.target.value })
+                      }
                       id=""
                       // cols="30"
                       rows="5"
