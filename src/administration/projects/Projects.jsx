@@ -53,6 +53,20 @@ const Projects = () => {
     setItemOffset(newOffset);
   };
 
+  const deleteProject = async (projectId) => {
+    await axiosClient
+      .delete(`/projects/${projectId}`)
+      .then((res) => {
+        window.location.reload();
+        toast.success(res?.data?.message);
+        return;
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err?.response?.message);
+      });
+  };
+
   useEffect(() => {
     getProjects();
   }, []);
@@ -154,13 +168,13 @@ const Projects = () => {
                                 className="text-sky-500"
                               />
                             </Link>
-                            <Link>
+                            <button onClick={() => deleteProject(project._id)}>
                               <AiOutlineDelete
                                 size={22}
                                 title="Delete"
                                 className="text-red-500"
                               />
-                            </Link>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -200,7 +214,6 @@ const Projects = () => {
           "bg-[rgb(0,223,154)] text-white border-[rgb(0,223,154)]"
         }
       />
-      {/* {projectsList} */}
     </div>
   );
 };

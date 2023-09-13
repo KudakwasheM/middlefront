@@ -18,7 +18,7 @@ const Proposal = () => {
       .get(`/projects/${id}`)
       .then((res) => {
         setLoading(false);
-        console.log(user);
+        console.log(res?.data?.project);
         setProject(res?.data?.project);
       })
       .catch((err) => {
@@ -58,7 +58,7 @@ const Proposal = () => {
               </TabList>
 
               <TabPanel>
-                <div className="py-10 px-5 grid grid-col-1 lg:grid-cols-3 gap-5">
+                <div className="py-10 px-0 sm:px-5  grid grid-col-1 lg:grid-cols-3 gap-5">
                   <div className="col-span-1 lg:col-span-2">
                     <h1 className="text-2xl">Short Description</h1>
                     <p>{project.details.short_summary}</p>

@@ -35,6 +35,8 @@ const AdminDash = () => {
       let usersCount = res.data.users.length;
       setInvestors(usersCount);
     });
+
+    setLoading(false);
   };
 
   useEffect(() => {

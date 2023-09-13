@@ -112,6 +112,8 @@ const UsersForm = () => {
                   <GrFormClose size={25} />
                 </button>
               </div>
+            </div>
+            <div className="flex flex-col mb-2">
               <label htmlFor="" className="mb-1">
                 Email
               </label>

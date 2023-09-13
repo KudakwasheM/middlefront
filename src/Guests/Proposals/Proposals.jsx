@@ -80,14 +80,18 @@ const Proposals = () => {
                     <GoLocation size={18} className="text-blue-500" />
                     <span className="ml-1">{project.location}</span>
                   </p>
+                  {project.details ? (
+                    <p className="text-gray-700">
+                      {project.details.short_summary
+                        .split(" ")
+                        .splice(0, 50)
+                        .join(" ")}
+                      ...
+                    </p>
+                  ) : (
+                    <p>No details</p>
+                  )}
 
-                  <p className="text-gray-700">
-                    {project.details.short_summary
-                      .split(" ")
-                      .splice(0, 50)
-                      .join(" ")}
-                    ...
-                  </p>
                   <div className="flex mt-5 gap-10">
                     <div className="flex flex-col">
                       <p className="text-sm">Target</p>

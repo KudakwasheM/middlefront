@@ -25,8 +25,8 @@ const ProjectForm = () => {
     mobile: "",
     industry: [],
     expected_fund: null,
-    raised_fund: null,
-    investor_percentage: null,
+    raised_fund: 0,
+    investor_percentage: 0,
     stage: "",
     enterpreneur: "",
   });
@@ -140,8 +140,6 @@ const ProjectForm = () => {
         .put(`/projects/${id}`, proj)
         .then((res) => {
           setLoadProject(false);
-          id = res.data.project._id;
-          console.log(id);
           toast.success(res?.data?.message);
         })
         .catch((err) => {
@@ -153,8 +151,9 @@ const ProjectForm = () => {
       await axiosClient
         .post("/projects", proj)
         .then((res) => {
-          console.log(id);
           setLoadProject(false);
+          setDetails({ project_id: res?.data?.project?._id });
+          console.log(details);
           toast.success(res?.data?.message);
         })
         .catch((err) => {
@@ -180,8 +179,9 @@ const ProjectForm = () => {
         });
     } else {
       setLoadDetails(true);
+      console.log(details);
       await axiosClient
-        .put(`/details`, details)
+        .post(`/details`, details)
         .then((res) => {
           setLoadDetails(false);
           toast.success(res?.data?.message);
