@@ -1,8 +1,8 @@
 export const industries = [
-  { value: "Farming", label: "Farming" },
+  { value: "Agriculture", label: "Agriculture" },
   { value: "Mining", label: "Mining" },
-  { value: "Software", label: "Software" },
+  { value: "Technology", label: "Technology" },
   { value: "Food", label: "Food" },
   { value: "Education", label: "Education" },
-  { value: "Medicine", label: "Medicine" },
+  { value: "Health", label: "Health" },
 ];
