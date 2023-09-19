@@ -50,18 +50,29 @@ const Investors = () => {
                     </div>
                     <div className="mt-5">
                       <h2 className="font-semibold mb-2">{investor.name}</h2>
-                      <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
-                        US${investor.details.minimum} - US$
-                        {investor.details.maximum}
-                      </div>
-                      <p className="text-gray-700">
-                        {investor.details.description
-                          .split(" ")
-                          .splice(0, 20)
-                          .join(" ")}
-                        ...
-                      </p>
 
+                      {investor.details ? (
+                        <>
+                          <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                            US${investor.details.minimum} - US$
+                            {investor.details.maximum}
+                          </div>
+                          <p className="text-gray-700">
+                            {investor.details.description
+                              .split(" ")
+                              .splice(0, 20)
+                              .join(" ")}
+                            ...
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                            No Data
+                          </div>
+                          <p className="text-gray-700">No description</p>
+                        </>
+                      )}
                       <div className="mt-5">
                         <Link
                           to={`/investors/${investor._id}`}

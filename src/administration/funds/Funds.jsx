@@ -10,6 +10,7 @@ import {
 } from "react-icons/ai";
 import CustomLoader from "../../Guests/components/CustomLoader";
 import ReactPaginate from "react-paginate";
+import moment from "moment";
 
 const Funds = () => {
   const [funds, setFunds] = useState([]);
@@ -38,6 +39,7 @@ const Funds = () => {
       .get("/funds")
       .then((res) => {
         setLoading(false);
+        console.log(res?.data?.funds);
         setFunds(res?.data?.funds);
       })
       .catch((err) => {
@@ -109,8 +111,10 @@ const Funds = () => {
                       <td className="py-3">{fund.amount}</td>
                       <td className="py-3">{fund.investor.name}</td>
                       <td className="py-3">{fund.project.name}</td>
-                      <td className="py-3">{fund.createdAt}</td>
-                      <td className="py-3 flex justify-around items-center">
+                      <td className="py-3">
+                        {moment(fund.createdAt).format("LL")}
+                      </td>
+                      <td className="py-3 flex justify-between items-center">
                         <Link to="">
                           <AiOutlineEye
                             size={22}

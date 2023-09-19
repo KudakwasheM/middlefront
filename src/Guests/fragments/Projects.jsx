@@ -17,7 +17,6 @@ const Projects = () => {
       .get("/projects")
       .then((res) => {
         setLoading(false);
-        console.log(res?.data);
         setProjects(res?.data?.projects.splice(-3));
       })
       .catch((err) => {
@@ -47,7 +46,7 @@ const Projects = () => {
               {projects.map((project) => {
                 return (
                   <div
-                    className="flex flex-col border rounded-lg bg-white h-auto hover:shadow-xl"
+                    className="flex flex-col border rounded-lg bg-white hover:shadow-xl"
                     key={project._id}
                   >
                     <div className="h-32">No Image</div>

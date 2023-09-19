@@ -18,7 +18,6 @@ const Proposal = () => {
       .get(`/projects/${id}`)
       .then((res) => {
         setLoading(false);
-        console.log(res?.data?.project);
         setProject(res?.data?.project);
       })
       .catch((err) => {
@@ -61,7 +60,11 @@ const Proposal = () => {
                 <div className="py-10 px-0 sm:px-5  grid grid-col-1 lg:grid-cols-3 gap-5">
                   <div className="col-span-1 lg:col-span-2">
                     <h1 className="text-2xl">Short Description</h1>
-                    <p>{project.details.short_summary}</p>
+                    {project.details ? (
+                      <p>{project.details.short_summary}</p>
+                    ) : (
+                      <p>No summary</p>
+                    )}
                   </div>
                   <div className="">
                     <h1 className="text-2xl">Overview</h1>
@@ -98,32 +101,40 @@ const Proposal = () => {
               </TabPanel>
               <TabPanel>
                 {user ? (
-                  <div className="grid grid-cols-1 md:grid-cols-4">
-                    <div className="col-span-3">
-                      <div className="mb-3">
-                        <h1 className="text-2xl">The Business</h1>
-                        <p className="text-gray-700">
-                          {project.details.description}
-                        </p>
+                  <>
+                    {project.details ? (
+                      <div className="grid grid-cols-1 md:grid-cols-4">
+                        <div className="col-span-3">
+                          <div className="mb-3">
+                            <h1 className="text-2xl">The Business</h1>
+                            <p className="text-gray-700">
+                              {project.details.description}
+                            </p>
+                          </div>
+                          <div className="mb-3">
+                            <h1 className="text-2xl">Project Advantages</h1>
+                            {project.details.advantages ? (
+                              <>
+                                {project.details.advantages.map((a) => {
+                                  return <p className="text-gray-700">{a}</p>;
+                                })}
+                              </>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                          <div className="mb-3">
+                            <h1 className="text-2xl">The Deal</h1>
+                            <p className="text-gray-700">
+                              {project.details.deal}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="mb-3">
-                        <h1 className="text-2xl">Project Advantages</h1>
-                        {project.details.advantages ? (
-                          <>
-                            {project.details.advantages.map((a) => {
-                              return <p className="text-gray-700">{a}</p>;
-                            })}
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                      <div className="mb-3">
-                        <h1 className="text-2xl">The Deal</h1>
-                        <p className="text-gray-700">{project.details.deal}</p>
-                      </div>
-                    </div>
-                  </div>
+                    ) : (
+                      <p>No details to show</p>
+                    )}
+                  </>
                 ) : (
                   <div className="h-[250px] w-full lg:w-[1200px]">
                     <div className="md:w-[300px] mx-auto flex flex-col h-full justify-center text-center">

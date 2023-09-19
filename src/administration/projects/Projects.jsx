@@ -34,7 +34,7 @@ const Projects = () => {
   const currentItems = filteredProjects.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(filteredProjects.length / itemsPerPage);
 
-  const getProjects = async (e) => {
+  const getProjects = async () => {
     setLoading(true);
     await axiosClient
       .get("/projects")
@@ -53,13 +53,15 @@ const Projects = () => {
     setItemOffset(newOffset);
   };
 
-  const deleteProject = async (projectId) => {
+  const deleteProject = async (proId, e) => {
+    // e.preventDefault();
+    console.log(proId);
+    setLoading(true);
     await axiosClient
-      .delete(`/projects/${projectId}`)
+      .delete(`/projects/${proId}`)
       .then((res) => {
-        window.location.reload();
         toast.success(res?.data?.message);
-        return;
+        setProjects(projects.filter((project) => project._id !== _id));
       })
       .catch((err) => {
         setLoading(false);
@@ -131,7 +133,7 @@ const Projects = () => {
                               <>
                                 {project.details.short_summary
                                   .split(" ")
-                                  .splice(0, 45)
+                                  .splice(0, 60)
                                   .join(" ")}
                                 ...
                               </>

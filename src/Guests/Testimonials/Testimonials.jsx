@@ -58,7 +58,6 @@ const Testimonials = () => {
           <>
             {newArray.map((testimonial) => {
               let objectColor = testimonial.color;
-              console.log(objectColor);
               return (
                 <div className="flex flex-col border rounded-lg bg-white p-5 break-inside-avoid">
                   <div className="mx-auto">

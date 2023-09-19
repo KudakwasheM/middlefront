@@ -79,12 +79,16 @@ const ProjectForm = () => {
         const retrievedProject = res?.data?.project;
         const details = retrievedProject.details;
         setDetails(details);
+        setDetails({ project_id: retrievedProject._id });
         setDetailsId(details._id);
       })
       .catch((err) => {
         setLoading(false);
         toast.error(err?.response?.data?.message);
       });
+    await axiosClient.get(`/details/project/${id}`).then((res) => {
+      console.log(res?.data);
+    });
     await axiosClient
       .get(`/members/project/${id}`)
       .then((res) => {
@@ -153,7 +157,6 @@ const ProjectForm = () => {
         .then((res) => {
           setLoadProject(false);
           setDetails({ project_id: res?.data?.project?._id });
-          console.log(details);
           toast.success(res?.data?.message);
         })
         .catch((err) => {
@@ -219,6 +222,7 @@ const ProjectForm = () => {
 
   if (id) {
     useEffect(() => {
+      console.log(id);
       getData();
       getEnterpreneurs();
     }, []);
@@ -397,7 +401,7 @@ const ProjectForm = () => {
                     <label htmlFor="">Short Description</label>
                     <textarea
                       className="border p-2"
-                      value={details.short_summary}
+                      value={details ? details.short_summary : ""}
                       placeholder="Enter your project name"
                       onChange={(e) =>
                         setDetails({
@@ -414,7 +418,7 @@ const ProjectForm = () => {
                     <label htmlFor="">Full Description</label>
                     <textarea
                       className="border p-2"
-                      value={details.description}
+                      value={details ? details.description : ""}
                       placeholder="Enter your project name"
                       onChange={(e) =>
                         setDetails({ ...details, description: e.target.value })
@@ -428,7 +432,7 @@ const ProjectForm = () => {
                     <label htmlFor="">Progress</label>
                     <textarea
                       className="border p-2"
-                      value={details.progress}
+                      value={details ? details.progress : ""}
                       placeholder="Enter your project name"
                       onChange={(e) =>
                         setDetails({ ...details, progress: e.target.value })
@@ -443,7 +447,7 @@ const ProjectForm = () => {
                     <label htmlFor="">Deal</label>
                     <textarea
                       className="border p-2"
-                      value={details.deal}
+                      value={details ? details.deal : ""}
                       placeholder="Enter your deal"
                       onChange={(e) =>
                         setDetails({ ...details, deal: e.target.value })
