@@ -40,7 +40,7 @@ const Navbar = ({ route }) => {
                   : ""
               }
             >
-              Proposals
+              StartUps
             </NavLink>
           </li>
           <li className="hover:text-[rgb(0,223,154)] mr-5">
