@@ -21,7 +21,7 @@ const Proposals = () => {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err?.response?.message);
+        toast.error(err?.response?.data?.message);
       });
   };
 

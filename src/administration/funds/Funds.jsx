@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AiOutlineDelete,
   AiOutlineEdit,
@@ -18,6 +18,8 @@ const Funds = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const filteredFunds = funds.filter((fund) => {
     // Specify your filter conditions here
@@ -44,7 +46,7 @@ const Funds = () => {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err?.response?.message);
+        toast.error(err?.response?.data?.message);
       });
   };
 
@@ -54,17 +56,17 @@ const Funds = () => {
   };
 
   const deleteFund = async (fundId) => {
-    setLoading(true);
+    if (!window.confirm("Are you sure you want to delete this fund?")) {
+      return;
+    }
+
     await axiosClient
       .delete(`/funds/${fundId}`)
       .then((res) => {
-        setLoading(false);
-        window.location.reload();
-        return;
+        getFunds();
       })
       .catch((err) => {
-        setLoading(false);
-        toast.error(err?.response?.message);
+        toast.error(err?.response?.data?.message);
       });
   };
 
@@ -99,6 +101,7 @@ const Funds = () => {
                 <th className="text-start py-2 ">Amount</th>
                 <th className="text-start py-2 ">Investor</th>
                 <th className="text-start py-2 ">Project</th>
+                <th className="text-start py-2 ">Percentage</th>
                 <th className="text-start py-2 ">Created On</th>
                 <th className="text-start py-2 ">Actions</th>
               </tr>
@@ -111,6 +114,9 @@ const Funds = () => {
                       <td className="py-3">{fund.amount}</td>
                       <td className="py-3">{fund.investor.name}</td>
                       <td className="py-3">{fund.project.name}</td>
+                      <td className="py-3">
+                        {fund.project_percentage.toFixed(2)}%
+                      </td>
                       <td className="py-3">
                         {moment(fund.createdAt).format("LL")}
                       </td>

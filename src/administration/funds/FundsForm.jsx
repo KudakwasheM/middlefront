@@ -3,7 +3,7 @@ import axiosClient from "../../axiosClient";
 import CustomLoader from "../../Guests/components/CustomLoader";
 import { BiArrowBack } from "react-icons/bi";
 import { GrFormClose } from "react-icons/gr";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import { toast } from "react-toastify";
 
@@ -18,6 +18,8 @@ const FundsForm = () => {
   const [investors, setInvestors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [saveLoad, setSaveLoad] = useState(false);
+
+  const navigate = useNavigate();
 
   const invs = [];
   const projs = [];
@@ -40,7 +42,7 @@ const FundsForm = () => {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err?.response?.message);
+        toast.error(err?.response?.data?.message);
       });
     await axiosClient
       .get("/projects")
@@ -59,7 +61,7 @@ const FundsForm = () => {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err?.response?.message);
+        toast.error(err?.response?.data?.message);
       });
     setLoading(false);
   };
@@ -75,18 +77,18 @@ const FundsForm = () => {
       })
       .catch((err) => {
         setLoading(false);
-        toast.error(err?.response?.message);
+        toast.error(err?.response?.data?.message);
       });
   };
 
   const changeInvestor = async (e) => {
     const investor = e.value;
-    setProj({ investor: investor });
+    setFund({ ...fund, investor: investor });
   };
 
   const changeProject = async (e) => {
     const project = e.value;
-    setProj({ project: project });
+    setFund({ ...fund, project: project });
   };
 
   const submitHandler = async (e) => {
@@ -94,27 +96,30 @@ const FundsForm = () => {
     if (id) {
       setSaveLoad(true);
       await axiosClient
-        .put(`/funds/${id}`)
+        .put(`/funds/${id}`, fund)
         .then((res) => {
           setSaveLoad(false);
-          console.log(res);
+          toast.success(res?.data?.message);
+          navigate("/admin/funds");
         })
         .catch((err) => {
           setSaveLoad(false);
-          toast.error(err?.response?.message);
+          toast.error(err?.response?.data?.message);
         });
     } else {
-      console.log("Save");
+      console.log(fund);
       setSaveLoad(true);
       await axiosClient
-        .post("/funds")
+        .post("/funds", fund)
         .then((res) => {
           setSaveLoad(false);
-          console.log(res);
+          toast.success(res?.data?.message);
+          navigate("/admin/funds");
         })
         .catch((err) => {
+          console.log(err);
           setSaveLoad(false);
-          toast.error(err?.response?.message);
+          toast.error(err?.response?.data?.message);
         });
     }
   };
@@ -164,17 +169,16 @@ const FundsForm = () => {
               </label>
               <input
                 type="text"
-                defaultValue={fund.amount}
+                value={fund.amount}
                 className="border p-2"
                 placeholder="Enter amount"
-                onChange={(e) => setFund({ amount: e.target.value })}
+                onChange={(e) => setFund({ ...fund, amount: e.target.value })}
               />
             </div>
             <div className="flex flex-col mb-2">
-              <label htmlFor="">Enterpreneur</label>
+              <label htmlFor="">Investor</label>
               <Select
                 options={investors}
-                value={fund.investor}
                 isClearable={true}
                 isDisabled={id ? true : false}
                 isSearchable={true}
@@ -185,7 +189,6 @@ const FundsForm = () => {
               <label htmlFor="">Project</label>
               <Select
                 options={projects}
-                value={fund.project}
                 isClearable={true}
                 isSearchable={true}
                 isDisabled={id ? true : false}

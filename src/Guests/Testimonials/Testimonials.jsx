@@ -17,7 +17,7 @@ const Testimonials = () => {
         randomizeColor(res?.data?.testimonials);
       })
       .catch((err) => {
-        toast.error(err?.response?.message);
+        toast.error(err?.response?.data?.message);
       });
   };
 

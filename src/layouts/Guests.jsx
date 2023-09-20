@@ -18,3 +18,28 @@ const Guests = () => {
 };
 
 export default Guests;
+
+// const Guests = () => {
+//   const [lodingT, setLoading] = useState(useContext(Test));
+
+//   // useEffect(() => {
+//   //   if (localStorage.getItem("user_id") == "") {
+//   //     setLoading(true);
+//   //   }
+//   // }, []);
+
+//   return (
+//     <Test.Provider value={lodingT}>
+//       {lodingT ? (
+//         <CustomLoader />
+//       ) : (
+//         <>
+//           <Navbar />
+//           <ToastContainer />
+//           <Outlet />
+//           <Footer />
+//         </>
+//       )}
+//     </Test.Provider>
+//   );
+// };
