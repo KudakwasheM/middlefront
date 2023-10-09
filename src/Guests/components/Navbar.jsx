@@ -10,7 +10,9 @@ import {
 } from "react-icons/ai";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/authApiSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { logout } from "../../slices/authSlice";
 
 const Navbar = ({ route }) => {
   const [nav, setNav] = useState(true);
@@ -20,6 +22,17 @@ const Navbar = ({ route }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const [logoutApiCall] = useLogoutMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/");
+    } catch (err) {
+      toast.error(err);
+    }
+  };
 
   const handleNav = () => {
     setNav(!nav);
@@ -32,7 +45,9 @@ const Navbar = ({ route }) => {
   };
 
   useEffect(() => {
-    checkInvestor();
+    if (userInfo) {
+      checkInvestor();
+    }
   }, []);
   return (
     <div className="w-full bg-white z-10 sticky top-0 shadow-md">
@@ -93,7 +108,7 @@ const Navbar = ({ route }) => {
               Testimonials
             </NavLink>
           </li>
-          {investor ? (
+          {userInfo ? (
             <div
               className={`${
                 open
@@ -145,7 +160,7 @@ const Navbar = ({ route }) => {
                   </Link>
                   <Link
                     to="/"
-                    // onClick={logoutHandler}
+                    onClick={logoutHandler}
                     className="flex items-center border-t py-2 hover:text-red-500"
                   >
                     <span className="mr-2">
@@ -157,7 +172,6 @@ const Navbar = ({ route }) => {
               </div>
             </div>
           ) : (
-            // <>Hello</>
             <Link to="/login" className="ml-5">
               <li className="py-2 px-3 bg-[rgba(0,223,154,0.08)] hover:text-[rgba(0,223,154,0.59)] rounded-full">
                 Account
