@@ -18,6 +18,7 @@ import Sponsors from "./Guests/Sponsors/Sponsors";
 import Sponsor from "./Guests/Sponsors/Sponsor";
 import Testimonial from "./Guests/Testimonials/Testimonial";
 import Testimonials from "./Guests/Testimonials/Testimonials";
+import Project from "./administration/projects/Project";
 import Projects from "./administration/projects/Projects";
 import ProjectForm from "./administration/projects/ProjectForm";
 import Investors from "./administration/investors/Investors";
@@ -25,6 +26,11 @@ import User from "./administration/users/User";
 import Funds from "./administration/funds/Funds";
 import FundsForm from "./administration/funds/FundsForm";
 import Fund from "./administration/funds/Fund";
+import Profile from "./layouts/profile/Profile";
+import ChangePassword from "./layouts/profile/ChangePassword";
+import EnterpreneurProjects from "./enterprenuer/myprojects/EnterpreneurProjects";
+import InvestorProfile from "./investor/profile/InvestorProfile";
+import InvestorUpdate from "./layouts/profile/InvestorUpdate";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +53,7 @@ const router = createBrowserRouter([
       { path: "/admin", element: <Navigate to="/admin/dashboard" /> },
       { path: "dashboard", element: <AdminDash /> },
       { path: "projects", element: <Projects /> },
-      { path: "projects/:id", element: <Projects /> },
+      { path: "projects/:id", element: <Project /> },
       { path: "projects/create", element: <ProjectForm /> },
       { path: "projects/edit/:id", element: <ProjectForm /> },
       { path: "funds", element: <Funds /> },
@@ -70,14 +76,27 @@ const router = createBrowserRouter([
         element: <Navigate to="/enterpreneur/dashboard" />,
       },
       { path: "dashboard", element: <EnterprenuerDash /> },
+      {
+        path: "myprojects",
+        element: <EnterpreneurProjects />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "changepassword",
+        element: <ChangePassword />,
+      },
     ],
   },
   {
     path: "/investor",
     element: <Investor />,
     children: [
-      { path: "/investor", element: <Navigate to="/investor/dashboard" /> },
-      { path: "dashboard", element: <InvestorDash /> },
+      { path: "/investor", element: <Navigate to="/investor/profile" /> },
+      { path: "profile", element: <InvestorProfile /> },
+      { path: "profile/:id", element: <InvestorUpdate /> },
     ],
   },
   { path: "/login", element: <Login /> },

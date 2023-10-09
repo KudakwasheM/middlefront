@@ -28,36 +28,52 @@ const UsersForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (user._id !== "") {
-      await axiosClient
-        .put(`/users/${user._id}`)
-        .then((res) => {
-          setLoading(false);
-          toast.success(res.message);
-          navigate("/admin/users");
-        })
-        .catch((err) => {
-          setLoading(false);
-          toast.error(err?.response?.data?.message || err.error);
-        });
+    if (user._id) {
+      if (password !== confirm_password) {
+        toast.error("Passowrds do not match");
+        return;
+      } else {
+        await axiosClient
+          .put(`/users/${user._id}`, {
+            name,
+            username,
+            email,
+            role,
+            password,
+          })
+          .then((res) => {
+            setLoading(false);
+            toast.success(res?.data?.message);
+            navigate("/admin/users");
+          })
+          .catch((err) => {
+            setLoading(false);
+            toast.error(err?.response?.data?.message || err.error);
+          });
+      }
     } else {
-      await axiosClient
-        .post("/users", {
-          name,
-          username,
-          email,
-          role,
-          password,
-        })
-        .then((res) => {
-          setLoading(false);
-          toast.success(res.message);
-          navigate("/admin/users");
-        })
-        .catch((err) => {
-          setLoading(false);
-          toast.error(err?.response?.data?.message || err.error);
-        });
+      if (password !== confirm_password) {
+        toast.error("Passowrds do not match");
+        return;
+      } else {
+        await axiosClient
+          .post("/users", {
+            name,
+            username,
+            email,
+            role,
+            password,
+          })
+          .then((res) => {
+            setLoading(false);
+            toast.success(res?.data?.message);
+            navigate("/admin/users");
+          })
+          .catch((err) => {
+            setLoading(false);
+            toast.error(err?.response?.data?.message || err.error);
+          });
+      }
     }
   };
 
@@ -98,7 +114,7 @@ const UsersForm = () => {
       {loadUser ? (
         <CustomLoader />
       ) : (
-        <div className="w-[400px] mx-auto m-5 p-4 border">
+        <div className="w-[55%] mx-auto m-5 p-4 border">
           <form>
             <div className="flex flex-col mb-2">
               <div className="flex justify-between items-center mb-3">
@@ -115,11 +131,11 @@ const UsersForm = () => {
             </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="" className="mb-1">
-                Email
+                Name
               </label>
               <input
                 type="text"
-                defaultValue={user.email}
+                defaultValue={user.name}
                 className="border p-2"
                 placeholder="Enter your name"
                 onChange={(e) => setName(e.target.value)}

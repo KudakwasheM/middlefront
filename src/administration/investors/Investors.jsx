@@ -10,13 +10,18 @@ import {
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CustomLoader from "../../Guests/components/CustomLoader";
+import Switch from "react-switch";
+import { Oval } from "react-loader-spinner";
 
 const Investors = () => {
   const [investors, setInvestors] = useState([]);
+  const [user, setUser] = useState({});
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [actLoad, setActLoad] = useState(false);
+  const [subLoad, setSubLoad] = useState(false);
 
   const filterInvestors = investors.filter((investor) => {
     // Specify your filter conditions here
@@ -41,6 +46,7 @@ const Investors = () => {
     await axiosClient
       .get("/users/investors")
       .then((res) => {
+        console.log(res?.data?.users);
         setLoading(false);
         setInvestors(res?.data?.users);
       })
@@ -53,6 +59,36 @@ const Investors = () => {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % users.length;
     setItemOffset(newOffset);
+  };
+
+  const toggleActivate = async (id) => {
+    setActLoad(true);
+    await axiosClient.put(`/users/activate/${id}`).then((res) => {
+      setActLoad(false);
+      getInvestors();
+    });
+  };
+
+  const toggleSubscribe = async (id) => {
+    setSubLoad(true);
+    await axiosClient.put(`/users/subscribe/${id}`).then((res) => {
+      setSubLoad(false);
+      getInvestors();
+    });
+  };
+
+  const deleteInvestor = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this investor?")) {
+      return;
+    }
+    await axiosClient
+      .delete(`/users/${id}`)
+      .then((res) => {
+        getInvestors();
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+      });
   };
 
   useEffect(() => {
@@ -116,35 +152,89 @@ const Investors = () => {
                             <h2 className="font-semibold mb-2">
                               {investorr.name}
                             </h2>
-                            <p className="py-[1px]">{investorr.username}</p>
-                            <p className="py-[1px] italic">{investorr.email}</p>
-                            <p className="py-[1px]">{investorr.role}</p>
+                            <p className="my-[1px]">{investorr.username}</p>
+                            <p className="my-[1px] italic">{investorr.email}</p>
+                            <div className="my-[1px]">
+                              {investorr.details ? (
+                                <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                                  US${investorr.details.minimum} - US$
+                                  {investorr.details.maximum}
+                                </div>
+                              ) : (
+                                <p>No Budget</p>
+                              )}
+                            </div>
                             <div className="flex justify-around py-3">
                               <div className="flex items-center text-sm">
-                                {investorr.active ? (
+                                <Switch
+                                  checkedIcon={false}
+                                  uncheckedHandleIcon={false}
+                                  offColor="#FF0000"
+                                  onColor="#00DF9A"
+                                  handleDiameter={23}
+                                  height={23}
+                                  width={46}
+                                  onChange={() => {
+                                    toggleActivate(investorr._id);
+                                  }}
+                                  checked={investorr.active}
+                                />
+                                {/* {investorr.active ? (
                                   <span className="rounded-full h-4 w-4 bg-green-500"></span>
-                                ) : (
-                                  <span className="rounded-full h-4 w-4 bg-red-500"></span>
-                                )}{" "}
+                                  ) : (
+                                    <span className="rounded-full h-4 w-4 bg-red-500"></span>
+                                  )}{" "} */}
                                 <p className="ml-2">Active</p>
                               </div>
                               <div className="flex items-center text-sm">
-                                {investorr.subscribed ? (
+                                {/* {investorr.subscribed ? (
                                   <span className="rounded-full h-4 w-4 bg-green-500"></span>
                                 ) : (
                                   <span className="rounded-full h-4 w-4 bg-red-500"></span>
-                                )}{" "}
-                                <p className="ml-2">Subscribed</p>
+                                )}{" "} */}
+                                <Switch
+                                  checkedIcon={false}
+                                  uncheckedHandleIcon={false}
+                                  offColor="#FF0000"
+                                  onColor="#00DF9A"
+                                  handleDiameter={23}
+                                  height={23}
+                                  width={46}
+                                  onChange={() => {
+                                    toggleSubscribe(investorr._id);
+                                  }}
+                                  checked={investorr.subscribed}
+                                />
+                                {subLoad ? (
+                                  <p className="ml-2">
+                                    <Oval
+                                      height={15}
+                                      width={15}
+                                      color="#00DF9A"
+                                    />
+                                  </p>
+                                ) : (
+                                  <p className="ml-2">Subscribed</p>
+                                )}
                               </div>
                             </div>
                             <div className="flex justify-around border-t pt-3 mt-3">
-                              <Link>
+                              <Link to={`/admin/investors/${investorr._id}`}>
+                                <AiOutlineEye
+                                  size={22}
+                                  title="View"
+                                  className="text-green-500"
+                                />
+                              </Link>
+                              <button
+                                onClick={() => deleteInvestor(investorr._id)}
+                              >
                                 <AiOutlineDelete
                                   size={22}
                                   title="Delete"
                                   className="text-red-500"
                                 />
-                              </Link>
+                              </button>
                             </div>
                           </div>
                         </div>

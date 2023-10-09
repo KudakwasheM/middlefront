@@ -5,12 +5,15 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import axiosClient from "../../axiosClient";
 import CustomLoader from "../components/CustomLoader";
+import { useSelector } from "react-redux";
 
 const Proposal = () => {
   const { id } = useParams();
   const [project, setProject] = useState({});
   const [loading, setLoading] = useState(true);
-  const { user } = useState(localStorage.getItem("userInfo"));
+  const [investor, setInvestor] = useState({});
+
+  const { userInfo } = useSelector((state) => state.auth);
 
   const getProject = async () => {
     setLoading(true);
@@ -26,7 +29,14 @@ const Proposal = () => {
       });
   };
 
+  const checkInvestor = () => {
+    if (userInfo.role == "Investor") {
+      setInvestor(userInfo);
+    }
+  };
+
   useEffect(() => {
+    checkInvestor();
     getProject();
   }, []);
 
@@ -100,7 +110,7 @@ const Proposal = () => {
                 </div>
               </TabPanel>
               <TabPanel>
-                {user ? (
+                {investor ? (
                   <>
                     {project.details ? (
                       <div className="grid grid-cols-1 md:grid-cols-4">
@@ -162,8 +172,8 @@ const Proposal = () => {
                 )}
               </TabPanel>
               <TabPanel>
-                {user ? (
-                  <h2>Any content 4</h2>
+                {investor ? (
+                  <h2>No documents</h2>
                 ) : (
                   <div className="h-[250px] w-full lg:w-[1200px]">
                     <div className="md:w-[300px] mx-auto flex flex-col h-full justify-center text-center">

@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineBackward, AiOutlineStepBackward } from "react-icons/ai";
+import {
+  AiOutlineBackward,
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineEye,
+  AiOutlineStepBackward,
+} from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSetProjectMutation } from "../../slices/projectsApiSlice";
@@ -18,6 +24,7 @@ const ProjectForm = () => {
   const [detailsId, setDetailsId] = useState("");
   const [memberIds, setMemberIds] = useState();
   const [loading, setLoading] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([]);
   const [proj, setProj] = useState({
     name: "",
     website: "",
@@ -25,8 +32,8 @@ const ProjectForm = () => {
     mobile: "",
     industry: [],
     expected_fund: null,
-    raised_fund: 0,
-    investor_percentage: 0,
+    raised_fund: null,
+    investor_percentage: null,
     stage: "",
     enterpreneur: "",
   });
@@ -40,14 +47,12 @@ const ProjectForm = () => {
     project_id: "",
   });
 
-  const [teamMember, setTeamMember] = useState([
-    {
-      name: "",
-      position: "",
-      description: "",
-      project_id: "",
-    },
-  ]);
+  const [teamMember, setTeamMember] = useState({
+    name: "",
+    position: "",
+    description: "",
+    project_id: "",
+  });
 
   const [loadProject, setLoadProject] = useState(false);
   const [loadDetails, setLoadDetails] = useState(false);
@@ -74,31 +79,35 @@ const ProjectForm = () => {
     await axiosClient
       .get(`/projects/${id}`)
       .then((res) => {
-        setLoading(false);
+        console.log(res?.data?.project);
         setProj(res?.data?.project);
         const retrievedProject = res?.data?.project;
         const details = retrievedProject.details;
         setDetails(details);
         setDetails({ project_id: retrievedProject._id });
+        // setTeamMember({ ...teamMember, project_id: retrievedProject._id });
         setDetailsId(details._id);
       })
       .catch((err) => {
-        setLoading(false);
         toast.error(err?.response?.data?.message);
       });
-    await axiosClient.get(`/details/project/${id}`).then((res) => {
-      console.log(res?.data);
-    });
+    await axiosClient
+      .get(`/details/project/${id}`)
+      .then((res) => {
+        setDetails(res?.data?.detail);
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+      });
     await axiosClient
       .get(`/members/project/${id}`)
       .then((res) => {
-        setLoading(false);
-        setTeamMember(res?.data?.members);
+        setTeamMembers(res?.data?.members);
       })
       .catch((err) => {
-        setLoading(false);
         toast.error(err?.response?.data?.message);
       });
+    setLoading(false);
   };
 
   const dataz = [];
@@ -196,6 +205,7 @@ const ProjectForm = () => {
     }
   };
 
+  const team = [];
   const saveMember = async (e) => {
     e.preventDefault();
     setLoadMember(true);
@@ -203,6 +213,9 @@ const ProjectForm = () => {
       .post("/members", teamMember)
       .then((res) => {
         setLoadMember(false);
+        team.push(res?.data?.member);
+        setTeamMembers(team);
+        toast.success(res?.data?.message);
       })
       .catch((err) => {
         setLoadMember(false);
@@ -222,11 +235,12 @@ const ProjectForm = () => {
 
   if (id) {
     useEffect(() => {
-      console.log(id);
       getData();
       getEnterpreneurs();
     }, []);
   }
+
+  const deleteMember = () => {};
 
   useEffect(() => {
     getEnterpreneurs();
@@ -235,21 +249,21 @@ const ProjectForm = () => {
 
   return (
     <div className="p-3 w-full">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold mb-3 text-[rgba(0,223,154,0.65)]">
-          Add Project
-        </h2>
-        <button
-          onClick={() => navigate(-1)}
-          className="text-red-500 p-1 border-2 rounded-full border-red-500"
-        >
-          <BiArrowBack size={20} className="" />
-        </button>
-      </div>
       {loading ? (
         <CustomLoader />
       ) : (
-        <div className="m-5 p-4 w-[500px] mx-auto border">
+        <div className="m-5 p-4 w-[600px] mx-auto border">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold mb-3 text-[rgba(0,223,154,0.65)]">
+              Add Project
+            </h2>
+            <button
+              onClick={() => navigate(-1)}
+              className="text-red-500 p-1 border-2 rounded-full border-red-500"
+            >
+              <BiArrowBack size={20} className="" />
+            </button>
+          </div>
           <Tabs>
             <TabList>
               <Tab>Project</Tab>
@@ -401,7 +415,7 @@ const ProjectForm = () => {
                     <label htmlFor="">Short Description</label>
                     <textarea
                       className="border p-2"
-                      value={details ? details.short_summary : ""}
+                      value={details.short_summary}
                       placeholder="Enter your project name"
                       onChange={(e) =>
                         setDetails({
@@ -474,7 +488,11 @@ const ProjectForm = () => {
                       className="bg-[rgb(0,223,154)] py-2 w-full text-white"
                       onClick={saveDetails}
                     >
-                      {loadDetails ? "...Loading" : "Save Details"}
+                      {loadDetails ? (
+                        "...Loading"
+                      ) : (
+                        <>{details._id ? "Update Details" : "Save Details"}</>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -489,8 +507,10 @@ const ProjectForm = () => {
                     <input
                       type="text"
                       className="border p-2"
-                      placeholder="Enter your project name"
-                      onChange={(e) => setTeamMember({ name: e.target.value })}
+                      placeholder="Enter member's name"
+                      onChange={(e) =>
+                        setTeamMember({ ...teamMember, name: e.target.value })
+                      }
                     />
                   </div>
                   <div className="flex flex-col mb-2">
@@ -498,9 +518,12 @@ const ProjectForm = () => {
                     <input
                       type="text"
                       className="border p-2"
-                      placeholder="Enter your text"
+                      placeholder="Enter member's position"
                       onChange={(e) =>
-                        setTeamMember({ position: e.target.value })
+                        setTeamMember({
+                          ...teamMember,
+                          position: e.target.value,
+                        })
                       }
                     />
                   </div>
@@ -508,14 +531,21 @@ const ProjectForm = () => {
                     <label htmlFor="">Description</label>
                     <textarea
                       className="border p-2"
-                      placeholder="Enter your project name"
+                      placeholder="Enter member's description"
                       onChange={(e) =>
-                        setTeamMember({ description: e.target.value })
+                        setTeamMember({
+                          ...teamMember,
+                          description: e.target.value,
+                        })
                       }
                       id=""
                       // cols="30"
                       rows="5"
                     ></textarea>
+                  </div>
+                  <div className="flex-col mb-2 hidden">
+                    <label htmlFor="">Project</label>
+                    <input type="text" disabled value={proj._id} />
                   </div>
                   {/* {usersSelect} */}
                   <div className="">
@@ -529,24 +559,42 @@ const ProjectForm = () => {
                   </div>
                 </form>
 
-                {teamMember.length > 0 ? (
+                {teamMembers.length > 0 ? (
                   <div className="mt-3">
-                    {teamMember.map((member) => {
+                    {teamMembers.map((member) => {
                       return (
-                        <div className="w-full mb-2 border-b">
-                          <div className="flex">
-                            <p className="w-[25%]">Name</p>
-                            <p className="font-semibold">{member.name}</p>
+                        <div className="w-full grid grid-cols-4 mb-2 border-b">
+                          <div className="col-span-3 ">
+                            <div className="flex">
+                              <p className="w-[25%]">Name</p>
+                              <p className="font-semibold">{member.name}</p>
+                            </div>
+                            <div className="flex">
+                              <p className="w-[25%]">Position</p>
+                              <p className="font-semibold">{member.position}</p>
+                            </div>
+                            <div className="flex">
+                              <p className="w-[25%]">Description</p>
+                              <p className="font-semibold">
+                                {member.description}
+                              </p>
+                            </div>
                           </div>
-                          <div className="flex">
-                            <p className="w-[25%]">Position</p>
-                            <p className="font-semibold">{member.position}</p>
-                          </div>
-                          <div className="flex">
-                            <p className="w-[25%]">Description</p>
-                            <p className="font-semibold">
-                              {member.description}
-                            </p>
+                          <div className="flex items-center justify-around">
+                            <button>
+                              <AiOutlineEdit
+                                size={22}
+                                title="Edit"
+                                className="text-sky-500"
+                              />
+                            </button>
+                            <button onClick={deleteMember}>
+                              <AiOutlineDelete
+                                size={22}
+                                title="Delete"
+                                className="text-red-500"
+                              />
+                            </button>
                           </div>
                         </div>
                       );

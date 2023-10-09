@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
   AiOutlineAccountBook,
+  AiOutlineDashboard,
+  AiOutlineDollar,
   AiOutlineHome,
+  AiOutlineLogout,
   AiOutlineProject,
   AiOutlineTeam,
   AiOutlineUser,
@@ -18,6 +21,7 @@ const Administration = () => {
   const [logoutApiCall] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
@@ -59,7 +63,7 @@ const Administration = () => {
             }
           >
             <span className="mr-2">
-              <AiOutlineHome size={25} />
+              <AiOutlineDashboard size={25} />
             </span>
             Dashboard
           </NavLink>
@@ -98,7 +102,7 @@ const Administration = () => {
             }
           >
             <span className="mr-2">
-              <AiOutlineProject size={25} />
+              <AiOutlineDollar size={25} />
             </span>
             Funds
           </NavLink>
@@ -116,14 +120,14 @@ const Administration = () => {
             Users
           </NavLink>
         </div>
-        <div>
+        <div className="mt-2">
           <NavLink
             to="/"
             onClick={logoutHandler}
             className="text-red-500 p-3 mb-1 w-full flex items-center border border-red-500 hover:bg-red-500 hover:text-white shadow-[rgba(239,68,68,0.25)_0px_6px_12px_-2px,_rgba(239,68,68,0.5)_0px_3px_7px_-3px]"
           >
             <span className="mr-2">
-              <AiOutlineAccountBook size={25} />
+              <AiOutlineLogout size={25} />
             </span>
             Logout
           </NavLink>

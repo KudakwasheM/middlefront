@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const FundsForm = () => {
   const [fund, setFund] = useState({
-    amount: 0,
+    amount: null,
     investor: "",
     project: "",
   });

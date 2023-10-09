@@ -53,15 +53,15 @@ const Projects = () => {
     setItemOffset(newOffset);
   };
 
-  const deleteProject = async (proId, e) => {
-    // e.preventDefault();
-    console.log(proId);
-    setLoading(true);
+  const deleteProject = async (proId) => {
+    if (!window.confirm("Are you sure you want to delete project")) {
+      return;
+    }
     await axiosClient
       .delete(`/projects/${proId}`)
       .then((res) => {
-        toast.success(res?.data?.message);
-        setProjects(projects.filter((project) => project._id !== _id));
+        getProjects();
+        // setProjects(projects.filter((project) => project._id !== _id));
       })
       .catch((err) => {
         setLoading(false);
@@ -106,7 +106,7 @@ const Projects = () => {
                   {currentItems.map((project) => {
                     return (
                       <div
-                        className="flex flex-col border rounded-lg bg-white h-[520px] hover:shadow-xl"
+                        className="flex flex-col border rounded-lg bg-white hover:shadow-xl"
                         key={project._id}
                       >
                         <div className="h-32">No Image</div>

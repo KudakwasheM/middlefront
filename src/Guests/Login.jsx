@@ -27,11 +27,11 @@ const Login = () => {
         case "Admin":
           navigate("/admin");
           break;
-        case "Interprenuer":
+        case "Enterpreneur":
           navigate("/enterpreneur");
           break;
         case "Investor":
-          navigate("/investor");
+          navigate("/");
           break;
         default:
           navigate("/login");
@@ -43,6 +43,7 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log({ email, password });
     await axiosClient
       .post("/login", { email, password })
       .then((res) => {

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
+  AiOutlineDollar,
   AiOutlineEdit,
   AiOutlineEye,
+  AiOutlineGroup,
   AiOutlinePercentage,
+  AiOutlineProject,
+  AiOutlineTeam,
 } from "react-icons/ai";
 import Card from "./components/Card";
 import axiosClient from "../axiosClient";
@@ -23,20 +27,17 @@ const AdminDash = () => {
     setLoading(true);
 
     await axiosClient.get("/projects").then((res) => {
-      console.log(res);
       let projectsCount = res.data.projects.length;
       setProjects(projectsCount);
     });
 
     await axiosClient.get("/users").then((res) => {
-      console.log(res);
       let usersCount = res.data.users.length;
       setUsers(res.data.users.splice(-4));
       setUsersNo(usersCount);
     });
 
     await axiosClient.get("/funds").then((res) => {
-      console.log(res);
       let fundsAmounts = 0;
       for (let i = 0; i < res.data.funds.length; i++) {
         fundsAmounts += res.data.funds[i].amount;
@@ -46,7 +47,6 @@ const AdminDash = () => {
     });
 
     await axiosClient.get("/users/investors").then((res) => {
-      console.log(res);
       let usersCount = res.data.users.length;
       setInvestors(usersCount);
     });
@@ -70,7 +70,7 @@ const AdminDash = () => {
                 <p className="text-sm">Projects</p>
               </div>
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
-                <AiOutlinePercentage size={20} />
+                <AiOutlineProject size={20} />
               </div>
             </div>
             <div className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3">
@@ -88,7 +88,7 @@ const AdminDash = () => {
                 <p className="text-sm">Funds Raised</p>
               </div>
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
-                <AiOutlinePercentage size={20} />
+                <AiOutlineDollar size={20} />
               </div>
             </div>
             <div className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3">
@@ -97,7 +97,7 @@ const AdminDash = () => {
                 <p className="text-sm">Users</p>
               </div>
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
-                <AiOutlinePercentage size={20} />
+                <AiOutlineTeam size={20} />
               </div>
             </div>
           </div>
@@ -109,6 +109,7 @@ const AdminDash = () => {
               <thead className="px-5">
                 <th className="text-start py-2 ">Amount</th>
                 <th className="text-start py-2 ">Project</th>
+                <th className="text-start py-2 ">Percentage</th>
                 <th className="text-start py-2 ">Investor</th>
                 <th className="text-start py-2 ">Created On</th>
                 <th className="text-start py-2 ">Actions</th>
@@ -121,6 +122,9 @@ const AdminDash = () => {
                         <tr className="border-t">
                           <td className="py-3">{fund.amount}</td>
                           <td className="py-3">{fund.project.name}</td>
+                          <td className="py-3">
+                            {fund.project_percentage.toFixed(2)}%
+                          </td>
                           <td className="py-3">{fund.investor.name}</td>
                           <td className="py-3">
                             {moment(fund.createdAt).format("LL")}
