@@ -173,7 +173,7 @@ const Navbar = ({ route }) => {
             </div>
           ) : (
             <Link to="/login" className="ml-5">
-              <li className="py-2 px-3 bg-[rgba(0,223,154,0.08)] hover:text-[rgba(0,223,154,0.59)] rounded-full">
+              <li className="py-2 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] px-3 bg-[rgba(0,223,154,0.08)] hover:text-[rgba(0,223,154,0.59)] rounded-full">
                 Account
               </li>
             </Link>

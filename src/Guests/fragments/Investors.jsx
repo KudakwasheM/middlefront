@@ -26,8 +26,8 @@ const Investors = () => {
     getInvestors();
   }, []);
   return (
-    <div className="bg-[rgba(0,223,154,0.05)] py-10">
-      <div className="max-w-[1200px] mx-auto">
+    <div className="bg-[rgba(0,223,154,0.05)]">
+      <div className=" py-10 max-w-[1200px] mx-auto">
         <h2 className="text-3xl font-semibold mb-3 text-center">
           Get In-touch With Our Investors
         </h2>

@@ -27,10 +27,11 @@ import Funds from "./administration/funds/Funds";
 import FundsForm from "./administration/funds/FundsForm";
 import Fund from "./administration/funds/Fund";
 import Profile from "./layouts/profile/Profile";
-import ChangePassword from "./layouts/profile/ChangePassword";
 import EnterpreneurProjects from "./enterprenuer/myprojects/EnterpreneurProjects";
 import InvestorProfile from "./investor/profile/InvestorProfile";
-import InvestorUpdate from "./layouts/profile/InvestorUpdate";
+import InvestorUpdate from "./investor/profile/InvestorUpdate";
+import ChangePassword from "./layouts/profile/ChangePassword";
+import InvestorPassword from "./investor/profile/InvestorPassword";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,7 @@ const router = createBrowserRouter([
       { path: "/investor", element: <Navigate to="/investor/profile" /> },
       { path: "profile", element: <InvestorProfile /> },
       { path: "profile/:id", element: <InvestorUpdate /> },
+      { path: "changepassword", element: <InvestorPassword /> },
     ],
   },
   { path: "/login", element: <Login /> },

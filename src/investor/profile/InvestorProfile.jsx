@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axiosClient from "../../axiosClient";
+import { toast } from "react-toastify";
 
 const InvestorProfile = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const getDetails = async () => {
+    setLoading();
+
+    await axiosClient
+      .get(`/users/${userInfo._id}`)
+      .then((res) => {
+        setLoading(false);
+        console.log(res?.data?.user);
+        setUser(res?.data?.user);
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err.message);
+      });
+  };
+
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   return (
     <div className="my-10">
@@ -37,53 +61,32 @@ const InvestorProfile = () => {
             </div>
           </div>
           <div className="col-span-2 border p-5">
-            <div className="p-5 text-center border">
-              <img
-                src=""
-                className="h-28 w-28 mx-auto border-2 p-1 border-[rgb(0,223,154)] rounded-full mb-4"
-                alt=""
-              />
-
-              <div className="flex flex-col text-center mx-auto">
-                <h2 className="text-2xl mb-2">{userInfo?.name}</h2>
-                <h3 className="text-md text-[rgb(0,223,154)]">
-                  {userInfo?.role}
-                </h3>
-                <p className="text-md">{userInfo?.email}</p>
-                <h3 className="text-md">{userInfo?.username}</h3>
-              </div>
-            </div>
-            <div className="p-5 text-center border">
-              <img
-                src=""
-                className="h-28 w-28 mx-auto border-2 p-1 border-[rgb(0,223,154)] rounded-full mb-4"
-                alt=""
-              />
-
-              <div className="flex flex-col text-center mx-auto">
-                <h2 className="text-2xl mb-2">{userInfo?.name}</h2>
-                <h3 className="text-md text-[rgb(0,223,154)]">
-                  {userInfo?.role}
-                </h3>
-                <p className="text-md">{userInfo?.email}</p>
-                <h3 className="text-md">{userInfo?.username}</h3>
-              </div>
-            </div>
-            <div className="p-5 text-center border">
-              <img
-                src=""
-                className="h-28 w-28 mx-auto border-2 p-1 border-[rgb(0,223,154)] rounded-full mb-4"
-                alt=""
-              />
-
-              <div className="flex flex-col text-center mx-auto">
-                <h2 className="text-2xl mb-2">{userInfo?.name}</h2>
-                <h3 className="text-md text-[rgb(0,223,154)]">
-                  {userInfo?.role}
-                </h3>
-                <p className="text-md">{userInfo?.email}</p>
-                <h3 className="text-md">{userInfo?.username}</h3>
-              </div>
+            <h2 className="text-xl font-semibold">Details</h2>
+            <div className="mt-5">
+              {user.details ? (
+                <div>
+                  <table>
+                    <tr>
+                      <th></th>
+                      <td>
+                        US${user.details.minimum} - US${user.details.minimum}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Budget</th>
+                      <td>
+                        US${user.details.minimum} - US${user.details.minimum}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Budget</th>
+                      <td>US${user.details.minimum}</td>
+                    </tr>
+                  </table>
+                </div>
+              ) : (
+                <>No details recorded</>
+              )}
             </div>
           </div>
         </div>

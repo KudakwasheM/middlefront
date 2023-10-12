@@ -61,7 +61,7 @@ const ChangePassword = () => {
             Old Password
           </label>
           <input
-            type="text"
+            type="password"
             className="border p-2"
             placeholder="Enter old password"
             onChange={(e) => setOldPassword(e.target.value)}
@@ -72,7 +72,7 @@ const ChangePassword = () => {
             New Password
           </label>
           <input
-            type="text"
+            type="password"
             className="border p-2"
             placeholder="Enter new password"
             onChange={(e) => setNewPassword(e.target.value)}
@@ -83,7 +83,7 @@ const ChangePassword = () => {
             Confirm new Password
           </label>
           <input
-            type="text"
+            type="password"
             className="border p-2"
             placeholder="Confirm new password"
             onChange={(e) => setConfirmNewPassword(e.target.value)}

@@ -19,29 +19,23 @@ const InvestorUpdate = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (password === confirm_password) {
-      await axiosClient
-        .put(`/users/${userInfo._id}`, {
-          name,
-          username,
-          email,
-          password,
-        })
-        .then((res) => {
-          setLoading(false);
-          console.log(res);
-          toast.success(res?.data?.message);
-          navigate("/investor/profile");
-        })
-        .catch((err) => {
-          setLoading(false);
-          toast.error(err?.response?.data?.message || err.error);
-        });
-    } else {
-      setLoading(false);
-      toast.error("Passwords do not match");
-      return;
-    }
+
+    await axiosClient
+      .put(`/users/${userInfo._id}`, {
+        name,
+        username,
+        email,
+      })
+      .then((res) => {
+        setLoading(false);
+        console.log(res);
+        toast.success(res?.data?.message);
+        navigate("/investor/profile");
+      })
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err?.response?.data?.message || err.error);
+      });
   };
 
   return (
@@ -88,24 +82,6 @@ const InvestorUpdate = () => {
             className="border p-2"
             placeholder="Enter your email"
             onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col mb-2">
-          <label htmlFor="">Password</label>
-          <input
-            type="password"
-            className="border p-2"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col mb-2">
-          <label htmlFor="">Confirm Password</label>
-          <input
-            type="password"
-            className="border p-2"
-            placeholder="Enter your confirm password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
         <div className="">
