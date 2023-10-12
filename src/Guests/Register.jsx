@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
 import { useRegisterMutation } from "../slices/authApiSlice";
 import { setCredentials } from "../slices/authSlice";
+import { ToastContainer, toast } from "react-toastify";
 import { GrFormClose } from "react-icons/gr";
+import axiosClient from "../axiosClient";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ const Register = () => {
   const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ const Register = () => {
           navigate("/enterpreneur");
           break;
         case "Investor":
-          navigate("/enterpreneur");
+          navigate("/");
           break;
         default:
           // navigate("/");
@@ -52,19 +54,36 @@ const Register = () => {
         toast.error("Please select role");
         return;
       }
-      try {
-        const res = await register({
+      await axiosClient
+        .post("/register", {
           name,
           username,
           email,
           role,
           password,
-        }).unwrap();
-        dispatch(setCredentials({ ...res }));
-        // navigate("/");
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+        })
+        .then((res) => {
+          setLoading(false);
+          dispatch(setCredentials(res.data));
+          navigate("/");
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error(err?.response?.data?.message || err.error);
+        });
+      // try {
+      //   const res = await register({
+      //     name,
+      //     username,
+      //     email,
+      //     role,
+      //     password,
+      //   }).unwrap();
+      //   dispatch(setCredentials({ ...res }));
+      //   // navigate("/");
+      // } catch (err) {
+      //   toast.error(err?.data?.message || err.error);
+      // }
     }
   };
 
