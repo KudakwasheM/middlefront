@@ -94,7 +94,7 @@ const Register = () => {
           <GrFormClose size={25} />
         </button>
         <h1 className="text-center text-[rgb(0,223,154)] text-4xl font-bold mb-3">
-          Middle.
+          Capidea.
         </h1>
         <ToastContainer />
         <p className="text-2xl text-center mb-3">Create an account</p>

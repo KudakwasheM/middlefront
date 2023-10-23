@@ -52,7 +52,7 @@ const Administration = () => {
   return (
     <div className="h-screen max-w-screen grid grid-cols-6 bg-[rgb(240,240,240)]">
       <aside className="flex flex-col bg-white p-5 col-span-1 h-screen max-h-full">
-        <h1 className="text-3xl font-bold text-[rgb(0,223,154)]">Middle.</h1>
+        <h1 className="text-3xl font-bold text-[rgb(0,223,154)]">Capidea.</h1>
         <div className="flex flex-col flex-1 text-black pt-10">
           <NavLink
             to="/admin/dashboard"

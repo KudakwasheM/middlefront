@@ -65,17 +65,27 @@ const Sponsors = () => {
                       </div>
                       <div className="mt-5">
                         <h2 className="font-semibold mb-2">{i.name}</h2>
-
-                        <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
-                          US${i.details.minimum} - US${i.details.maximum}
-                        </div>
-                        <p className="text-gray-700">
-                          {i.details.description
-                            .split(" ")
-                            .splice(0, 20)
-                            .join(" ")}
-                          ...
-                        </p>
+                        {i.details ? (
+                          <>
+                            <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                              US${i.details.minimum} - US${i.details.maximum}
+                            </div>
+                            <p className="text-gray-700">
+                              {i.details.description
+                                .split(" ")
+                                .splice(0, 20)
+                                .join(" ")}
+                              ...
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                              No Data
+                            </div>
+                            <p className="text-gray-700">No Description</p>
+                          </>
+                        )}
 
                         <div className="mt-5">
                           <Link

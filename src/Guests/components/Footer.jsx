@@ -14,7 +14,7 @@ const Footer = () => {
       <div className="max-w-[1200px] mx-auto py-10 px-5">
         <div className="flex flex-col sm:grid grid-cols-4 gap-5 border-b">
           <div className="col-span-3  sm:py-10">
-            <h1 className="text-white text-5xl font-bold">Middle.</h1>
+            <h1 className="text-white text-5xl font-bold">Capidea.</h1>
           </div>
           <div className="flex justify-around items-center py-2 col-span-1">
             <div className="bg-white p-2 rounded-full">
@@ -51,7 +51,7 @@ const Footer = () => {
             Terms and conditions
           </Link>
           <p>
-            &copy; {date.getFullYear()} Middle - Connecting Great Minds and
+            &copy; {date.getFullYear()} Capidea - Connecting Great Minds and
             Awesome Investors
           </p>
         </div>

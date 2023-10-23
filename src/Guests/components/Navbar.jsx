@@ -55,7 +55,7 @@ const Navbar = ({ route }) => {
         {/* <div className="flex justify-between items-center h-24 max-w-[1500px] mx-auto px-4 shadow-lg z-50 fixed w-full top-0"> */}
         <Link to="/">
           <h1 className="w-full text-3xl font-bold text-[rgb(0,223,154)]">
-            Middle.
+            Capidea.
           </h1>
         </Link>
         <ul className="hidden md:flex items-center justify-between">
@@ -195,7 +195,7 @@ const Navbar = ({ route }) => {
         >
           <div className="flex items-center h-24">
             <h1 className="w-full text-3xl font-bold text-[rgb(0,223,154)] m-4">
-              Middle.
+              Capidea.
             </h1>
           </div>
           <div className="flex flex-col justify-between">
@@ -223,7 +223,7 @@ const Navbar = ({ route }) => {
                   }
                   onClick={handleNav}
                 >
-                  Proposals
+                  StartUps
                 </NavLink>
               </li>
               <li className="p-4 border-b border-[rgba(0,223,154,0.1)] hover:text-[rgb(0,223,154)]">
@@ -253,11 +253,76 @@ const Navbar = ({ route }) => {
                 </NavLink>
               </li>
             </ul>
-            <Link to="/login" className="ml-5 flex ">
-              <p className="py-2 px-3 bg-[rgba(0,223,154,0.08)] flex-start hover:text-[rgba(0,223,154,0.59)] rounded-full">
-                Account
-              </p>
-            </Link>
+            {userInfo ? (
+              <div
+                className={`${
+                  open
+                    ? "shadow-[rgba(0,223,154,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
+                    : "shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
+                } hover:shadow-[rgba(0,223,154,0.2)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full bg-[rgba(0,223,154,0.08)] mx-5`}
+              >
+                <p
+                  className="flex items-center p-2 "
+                  onClick={() => setOpen(!open)}
+                >
+                  {investor?.name}
+                  <AiOutlineUser size={20} className="ml-2" />
+                  {open ? (
+                    <AiOutlineCaretUp size={10} />
+                  ) : (
+                    <AiOutlineCaretDown size={10} className="" />
+                  )}
+                </p>
+                <div
+                  className={`${
+                    open
+                      ? "block shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full"
+                      : "hidden"
+                  } absolute border bg-white py-5 px-3 rounded-lg w-[200px]`}
+                >
+                  <div className="text-center mb-3">
+                    <h3 className="text-lg">{investor?.name}</h3>
+                    <h4 className="text-sm">{investor?.role}</h4>
+                  </div>
+                  <ul>
+                    <Link
+                      to={`/investor/profile`}
+                      className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
+                    >
+                      <span className="mr-2">
+                        <AiOutlineUser size={20} className="ml-2" />
+                      </span>
+                      <p>My Profile</p>
+                    </Link>
+                    <Link
+                      to={`/investor/changepassword`}
+                      className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
+                    >
+                      <span className="mr-2">
+                        <AiOutlineSwap size={20} className="ml-2" />
+                      </span>
+                      <p>Change Password</p>
+                    </Link>
+                    <Link
+                      to="/"
+                      onClick={logoutHandler}
+                      className="flex items-center border-t py-2 hover:text-red-500"
+                    >
+                      <span className="mr-2">
+                        <AiOutlineLogout size={20} className="ml-2" />
+                      </span>
+                      <p>Log Out</p>
+                    </Link>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <Link to="/login" className="ml-5 flex ">
+                <p className="py-2 px-3 bg-[rgba(0,223,154,0.08)] flex-start hover:text-[rgba(0,223,154,0.59)] rounded-full">
+                  Account
+                </p>
+              </Link>
+            )}
           </div>
         </div>
       </div>

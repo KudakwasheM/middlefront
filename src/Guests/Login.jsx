@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/authApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { ToastContainer, toast } from "react-toastify";
-import { AiOutlineUserAdd } from "react-icons/ai";
 import { GrFormClose } from "react-icons/gr";
 import axiosClient from "../axiosClient";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -63,7 +62,7 @@ const Login = () => {
           <GrFormClose size={25} />
         </button>
         <h1 className="text-center text-[rgb(0,223,154)] text-4xl font-bold mb-5">
-          Middle.
+          Capidea.
         </h1>
         <ToastContainer />
         <p className="text-2xl text-center mb-3">Login into your account</p>

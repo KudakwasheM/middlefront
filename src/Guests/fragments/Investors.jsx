@@ -14,7 +14,7 @@ const Investors = () => {
       .get("/users/investors")
       .then((res) => {
         setLoading(false);
-        setInvestors(res?.data?.users);
+        setInvestors(res?.data?.users.splice(-3));
       })
       .catch((err) => {
         setLoading(false);

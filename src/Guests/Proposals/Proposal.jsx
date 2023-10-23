@@ -30,9 +30,11 @@ const Proposal = () => {
   };
 
   const checkInvestor = () => {
-    if (userInfo.role == "Investor") {
-      setInvestor(userInfo);
+    if (userInfo !== null) {
+      // setInvestor(userInfo);
+      setInvestor({});
     }
+    setInvestor(userInfo);
   };
 
   useEffect(() => {
