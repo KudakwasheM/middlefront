@@ -108,69 +108,75 @@ const Navbar = ({ route }) => {
               Testimonials
             </NavLink>
           </li>
-          {userInfo.role == "Investor" ? (
-            <div
-              className={`${
-                open
-                  ? "shadow-[rgba(0,223,154,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
-                  : "shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
-              } hover:shadow-[rgba(0,223,154,0.2)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full bg-[rgba(0,223,154,0.08)]`}
-            >
-              <p
-                className="flex items-center p-2 "
-                onClick={() => setOpen(!open)}
-              >
-                {investor?.name}
-                <AiOutlineUser size={20} className="ml-2" />
-                {open ? (
-                  <AiOutlineCaretUp size={10} />
-                ) : (
-                  <AiOutlineCaretDown size={10} className="" />
-                )}
-              </p>
-              <div
-                className={`${
-                  open
-                    ? "block shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full"
-                    : "hidden"
-                } absolute top-[65px] right-[25px] border bg-white py-5 px-3 rounded-lg w-[250px] before:content-[''] before:absolute before:top-[-50px] before:h-[40px] before:w-[40px]`}
-              >
-                <div className="text-center mb-3">
-                  <h3 className="text-lg">{investor?.name}</h3>
-                  <h4 className="text-sm">{investor?.role}</h4>
+          {userInfo ? (
+            <>
+              {userInfo.role == "Investor" ? (
+                <div
+                  className={`${
+                    open
+                      ? "shadow-[rgba(0,223,154,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
+                      : "shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
+                  } hover:shadow-[rgba(0,223,154,0.2)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full bg-[rgba(0,223,154,0.08)]`}
+                >
+                  <p
+                    className="flex items-center p-2 "
+                    onClick={() => setOpen(!open)}
+                  >
+                    {investor?.name}
+                    <AiOutlineUser size={20} className="ml-2" />
+                    {open ? (
+                      <AiOutlineCaretUp size={10} />
+                    ) : (
+                      <AiOutlineCaretDown size={10} className="" />
+                    )}
+                  </p>
+                  <div
+                    className={`${
+                      open
+                        ? "block shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full"
+                        : "hidden"
+                    } absolute top-[65px] right-[25px] border bg-white py-5 px-3 rounded-lg w-[250px] before:content-[''] before:absolute before:top-[-50px] before:h-[40px] before:w-[40px]`}
+                  >
+                    <div className="text-center mb-3">
+                      <h3 className="text-lg">{investor?.name}</h3>
+                      <h4 className="text-sm">{investor?.role}</h4>
+                    </div>
+                    <ul>
+                      <Link
+                        to={`/investor/profile`}
+                        className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
+                      >
+                        <span className="mr-2">
+                          <AiOutlineUser size={20} className="ml-2" />
+                        </span>
+                        <p>My Profile</p>
+                      </Link>
+                      <Link
+                        to={`/investor/changepassword`}
+                        className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
+                      >
+                        <span className="mr-2">
+                          <AiOutlineSwap size={20} className="ml-2" />
+                        </span>
+                        <p>Change Password</p>
+                      </Link>
+                      <Link
+                        to="/"
+                        onClick={logoutHandler}
+                        className="flex items-center border-t py-2 hover:text-red-500"
+                      >
+                        <span className="mr-2">
+                          <AiOutlineLogout size={20} className="ml-2" />
+                        </span>
+                        <p>Log Out</p>
+                      </Link>
+                    </ul>
+                  </div>
                 </div>
-                <ul>
-                  <Link
-                    to={`/investor/profile`}
-                    className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
-                  >
-                    <span className="mr-2">
-                      <AiOutlineUser size={20} className="ml-2" />
-                    </span>
-                    <p>My Profile</p>
-                  </Link>
-                  <Link
-                    to={`/investor/changepassword`}
-                    className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
-                  >
-                    <span className="mr-2">
-                      <AiOutlineSwap size={20} className="ml-2" />
-                    </span>
-                    <p>Change Password</p>
-                  </Link>
-                  <Link
-                    to="/"
-                    onClick={logoutHandler}
-                    className="flex items-center border-t py-2 hover:text-red-500"
-                  >
-                    <span className="mr-2">
-                      <AiOutlineLogout size={20} className="ml-2" />
-                    </span>
-                    <p>Log Out</p>
-                  </Link>
-                </ul>
-              </div>
-            </div>
+              ) : (
+                <></>
+              )}
+            </>
           ) : (
             <Link to="/login" className="ml-5">
               <li className="py-2 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] px-3 bg-[rgba(0,223,154,0.08)] hover:text-[rgba(0,223,154,0.59)] rounded-full">
