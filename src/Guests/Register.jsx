@@ -45,7 +45,7 @@ const Register = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (password !== confirm_password) {
       toast.error("Passowrds do not match");
       return;
@@ -64,8 +64,8 @@ const Register = () => {
         })
         .then((res) => {
           setLoading(false);
-          dispatch(setCredentials(res.data));
-          navigate("/");
+          toast.success(res?.data?.message);
+          navigate("/register/success");
         })
         .catch((err) => {
           setLoading(false);
@@ -90,7 +90,7 @@ const Register = () => {
   return (
     <div className="h-screen w-screen flex items-center justify-center">
       <div className="flex flex-col border md:w-[400px] p-5">
-        <button onClick={() => navigate(-1)} className="self-end">
+        <button onClick={() => navigate("/login")} className="self-end">
           <GrFormClose size={25} />
         </button>
         <h1 className="text-center text-[rgb(0,223,154)] text-4xl font-bold mb-3">
@@ -189,7 +189,7 @@ const Register = () => {
               className="bg-[rgb(0,223,154)] py-2 w-full text-white"
               onClick={submitHandler}
             >
-              {isLoading ? "...Loading" : "Register"}
+              {loading ? "...Loading" : "Register"}
             </button>
           </div>
         </form>

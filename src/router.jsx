@@ -32,6 +32,8 @@ import InvestorProfile from "./investor/profile/InvestorProfile";
 import InvestorUpdate from "./investor/profile/InvestorUpdate";
 import ChangePassword from "./layouts/profile/ChangePassword";
 import InvestorPassword from "./investor/profile/InvestorPassword";
+import SuccessRegister from "./Guests/SuccessRegister";
+import Verified from "./Guests/Verified";
 
 const router = createBrowserRouter([
   {
@@ -102,7 +104,9 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/login", element: <Login /> },
-  { path: "register", element: <Register /> },
+  { path: "/register", element: <Register /> },
+  { path: "/register/success", element: <SuccessRegister /> },
+  { path: "/verified/:id/:token", element: <Verified /> },
   { path: "*", element: <NotFound /> },
 ]);
 

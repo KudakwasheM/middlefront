@@ -64,7 +64,10 @@ const AdminDash = () => {
       ) : (
         <div className="p-5">
           <div className="grid grid-cols-4 gap-4">
-            <div className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3">
+            <a
+              href="/admin/projects"
+              className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
+            >
               <div className="flex-1">
                 <h2 className="font-bold">{projects}</h2>
                 <p className="text-sm">Projects</p>
@@ -72,8 +75,11 @@ const AdminDash = () => {
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
                 <AiOutlineProject size={20} />
               </div>
-            </div>
-            <div className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3">
+            </a>
+            <a
+              href="/admin/investors"
+              className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
+            >
               <div className="flex-1">
                 <h2 className="font-bold">{investors}</h2>
                 <p className="text-sm">Investors</p>
@@ -81,8 +87,11 @@ const AdminDash = () => {
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
                 <AiOutlinePercentage size={20} />
               </div>
-            </div>
-            <div className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3">
+            </a>
+            <a
+              href="/admin/funds"
+              className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
+            >
               <div className="flex-1">
                 <h2 className="font-bold">{fundsAmount}</h2>
                 <p className="text-sm">Funds Raised</p>
@@ -90,8 +99,11 @@ const AdminDash = () => {
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
                 <AiOutlineDollar size={20} />
               </div>
-            </div>
-            <div className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3">
+            </a>
+            <a
+              href="/admin/users"
+              className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
+            >
               <div className="flex-1">
                 <h2 className="font-bold">{usersNo}</h2>
                 <p className="text-sm">Users</p>
@@ -99,7 +111,7 @@ const AdminDash = () => {
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
                 <AiOutlineTeam size={20} />
               </div>
-            </div>
+            </a>
           </div>
           <div className="my-5 p-5 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
             <h2 className="text-xl text-[rgb(0,223,154)] font-semibold">
@@ -130,7 +142,7 @@ const AdminDash = () => {
                             {moment(fund.createdAt).format("LL")}
                           </td>
                           <td className="py-3 flex justify-between items-center">
-                            <Link to="">
+                            <Link to={`/admin/funds/${fund._id}`}>
                               <AiOutlineEye
                                 size={22}
                                 title="View"

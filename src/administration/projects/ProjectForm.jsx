@@ -60,6 +60,7 @@ const ProjectForm = () => {
   const [loadDoc, setLoadDoc] = useState(false);
   const [enterpreneurs, setEnterpreneurs] = useState([]);
   const [data, setData] = useState([]);
+  const [hidden, setHidden] = useState(false);
   // const [name, setName] = useState("");
   // const [website, setWebsite] = useState("");
   // const [location, setLocation] = useState("");
@@ -255,7 +256,7 @@ const ProjectForm = () => {
         <div className="m-5 p-4 w-[600px] mx-auto border">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold mb-3 text-[rgba(0,223,154,0.65)]">
-              Add Project
+              {proj ? "Update Project" : "Add Project"}{" "}
             </h2>
             <button
               onClick={() => navigate(-1)}
@@ -501,64 +502,6 @@ const ProjectForm = () => {
             <TabPanel>
               <h2 className="font-semibold mb-3">Team Member</h2>
               <div className="">
-                <form>
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="">Name</label>
-                    <input
-                      type="text"
-                      className="border p-2"
-                      placeholder="Enter member's name"
-                      onChange={(e) =>
-                        setTeamMember({ ...teamMember, name: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="">Position</label>
-                    <input
-                      type="text"
-                      className="border p-2"
-                      placeholder="Enter member's position"
-                      onChange={(e) =>
-                        setTeamMember({
-                          ...teamMember,
-                          position: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="">Description</label>
-                    <textarea
-                      className="border p-2"
-                      placeholder="Enter member's description"
-                      onChange={(e) =>
-                        setTeamMember({
-                          ...teamMember,
-                          description: e.target.value,
-                        })
-                      }
-                      id=""
-                      // cols="30"
-                      rows="5"
-                    ></textarea>
-                  </div>
-                  <div className="flex-col mb-2 hidden">
-                    <label htmlFor="">Project</label>
-                    <input type="text" disabled value={proj._id} />
-                  </div>
-                  {/* {usersSelect} */}
-                  <div className="">
-                    <button
-                      type="submit"
-                      className="bg-[rgb(0,223,154)] py-2 w-full text-white"
-                      onClick={saveMember}
-                    >
-                      {loadMember ? "...Loading" : "Save Member"}
-                    </button>
-                  </div>
-                </form>
-
                 {teamMembers.length > 0 ? (
                   <div className="mt-3">
                     {teamMembers.map((member) => {
@@ -599,9 +542,152 @@ const ProjectForm = () => {
                         </div>
                       );
                     })}
+                    <div className={`${hidden ? "hidden" : "mt-3"}`}>
+                      <button
+                        type="submit"
+                        className="bg-[rgb(0,223,154)] py-2 w-full text-white"
+                        onClick={() => {
+                          setHidden(true);
+                        }}
+                      >
+                        Add Another Member
+                      </button>
+                    </div>
+
+                    <div className={`${hidden ? "mt-5" : "hidden"}`}>
+                      <h2 className="text-xl font-semibold mb-3 text-[rgba(0,223,154,0.65)]">
+                        Add Memmber
+                      </h2>
+                      <div className="flex flex-col mb-2">
+                        <label htmlFor="">Name</label>
+                        <input
+                          type="text"
+                          className="border p-2"
+                          placeholder="Enter member's name"
+                          onChange={(e) =>
+                            setTeamMember({
+                              ...teamMember,
+                              name: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      {}
+                      <div className="flex flex-col mb-2">
+                        <label htmlFor="">Position</label>
+                        <input
+                          type="text"
+                          className="border p-2"
+                          placeholder="Enter member's position"
+                          onChange={(e) =>
+                            setTeamMember({
+                              ...teamMember,
+                              position: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="flex flex-col mb-2">
+                        <label htmlFor="">Description</label>
+                        <textarea
+                          className="border p-2"
+                          placeholder="Enter member's description"
+                          onChange={(e) =>
+                            setTeamMember({
+                              ...teamMember,
+                              description: e.target.value,
+                            })
+                          }
+                          id=""
+                          // cols="30"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                      <div className="flex-col mb-2 hidden">
+                        <label htmlFor="">Project</label>
+                        <input type="text" disabled value={proj._id} />
+                      </div>
+                      {/* {usersSelect} */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <button
+                          type="submit"
+                          className="bg-[rgb(0,223,154)] py-2 w-full text-white"
+                          onClick={saveMember}
+                        >
+                          {loadMember ? "...Loading" : "Save Member"}
+                        </button>
+                        <button
+                          className="bg-[rgb(255,0,0)] py-2 w-full text-white"
+                          onClick={() => setHidden(false)}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ) : (
-                  <></>
+                  <>
+                    <form>
+                      <div className="flex flex-col mb-2">
+                        <label htmlFor="">Name</label>
+                        <input
+                          type="text"
+                          className="border p-2"
+                          placeholder="Enter member's name"
+                          onChange={(e) =>
+                            setTeamMember({
+                              ...teamMember,
+                              name: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="flex flex-col mb-2">
+                        <label htmlFor="">Position</label>
+                        <input
+                          type="text"
+                          className="border p-2"
+                          placeholder="Enter member's position"
+                          onChange={(e) =>
+                            setTeamMember({
+                              ...teamMember,
+                              position: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                      <div className="flex flex-col mb-2">
+                        <label htmlFor="">Description</label>
+                        <textarea
+                          className="border p-2"
+                          placeholder="Enter member's description"
+                          onChange={(e) =>
+                            setTeamMember({
+                              ...teamMember,
+                              description: e.target.value,
+                            })
+                          }
+                          id=""
+                          // cols="30"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                      <div className="flex-col mb-2 hidden">
+                        <label htmlFor="">Project</label>
+                        <input type="text" disabled value={proj._id} />
+                      </div>
+                      {/* {usersSelect} */}
+                      <div className="">
+                        <button
+                          type="submit"
+                          className="bg-[rgb(0,223,154)] py-2 w-full text-white"
+                          onClick={saveMember}
+                        >
+                          {loadMember ? "...Loading" : "Save Member"}
+                        </button>
+                      </div>
+                    </form>
+                  </>
                 )}
               </div>
             </TabPanel>

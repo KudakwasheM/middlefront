@@ -108,7 +108,7 @@ const Navbar = ({ route }) => {
               Testimonials
             </NavLink>
           </li>
-          {userInfo ? (
+          {userInfo.role == "Investor" ? (
             <div
               className={`${
                 open

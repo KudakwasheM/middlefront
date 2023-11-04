@@ -26,7 +26,7 @@ const Login = () => {
         case "Admin":
           navigate("/admin");
           break;
-        case "Enterpreneur":
+        case "Enterprenuer":
           navigate("/enterpreneur");
           break;
         case "Investor":
@@ -42,7 +42,6 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log({ email, password });
     await axiosClient
       .post("/login", { email, password })
       .then((res) => {
@@ -58,7 +57,7 @@ const Login = () => {
   return (
     <div className="h-screen w-screen flex items-center justify-center">
       <div className="flex flex-col border md:w-[400px] p-5">
-        <button onClick={() => navigate(-1)} className="self-end">
+        <button onClick={() => navigate("/")} className="self-end">
           <GrFormClose size={25} />
         </button>
         <h1 className="text-center text-[rgb(0,223,154)] text-4xl font-bold mb-5">
@@ -93,11 +92,15 @@ const Login = () => {
           </div>
           <div className="">
             <button
-              className="bg-[rgb(0,223,154)] py-2 w-full text-white"
+              className={
+                loading
+                  ? "disabled bg-[rgba(0,223,154,0.5)] py-2 w-full text-white"
+                  : "bg-[rgb(0,223,154)] py-2 w-full text-white"
+              }
               type="submit"
               onClick={submitHandler}
             >
-              {isLoading ? "...Loading" : "Login"}
+              {loading ? "...Loading" : "Login"}
             </button>
           </div>
         </form>

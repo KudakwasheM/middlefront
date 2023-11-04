@@ -112,7 +112,7 @@ const Enterprenuer = () => {
             </span>
             Funds
           </NavLink> */}
-          <NavLink
+          {/* <NavLink
             to="/enterpreneur/users"
             className={({ isActive }) =>
               isActive
@@ -124,7 +124,7 @@ const Enterprenuer = () => {
               <AiOutlineTeam size={25} />
             </span>
             Users
-          </NavLink>
+          </NavLink> */}
         </div>
         <div className="mt-2">
           <NavLink
