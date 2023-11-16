@@ -68,6 +68,8 @@ const router = createBrowserRouter([
       { path: "users/:id", element: <User /> },
       { path: "users/create", element: <UsersForm /> },
       { path: "users/edit/:id", element: <UsersForm /> },
+      { path: "profile", element: <Profile /> },
+      { path: "changepassword", element: <ChangePassword /> },
     ],
   },
   {

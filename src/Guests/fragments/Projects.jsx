@@ -14,7 +14,7 @@ const Projects = () => {
   const getProjects = async () => {
     setLoading(true);
     await axiosClient
-      .get("/projects")
+      .get("/projects/all/published")
       .then((res) => {
         setLoading(false);
         setProjects(res?.data?.projects.splice(-3));

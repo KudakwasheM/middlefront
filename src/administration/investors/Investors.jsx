@@ -99,17 +99,6 @@ const Investors = () => {
     <div className="bg-white p-3 w-full">
       <div className="flex justify-between items-center mb-3">
         <h2 className="text-3xl font-semibold">Investors</h2>
-        {/* <Link
-          to="/admin/users/create"
-          className="flex items-center bg-green-400 font-semibold py-2 px-3 text-white"
-        >
-          Add User
-          <AiOutlineUserAdd
-            size={20}
-            className="ml-2"
-            style={{ stroke: "white", strokeWidth: "50" }}
-          />
-        </Link> */}
       </div>
       <input
         type="text"
@@ -125,121 +114,113 @@ const Investors = () => {
             <>
               {currentItems.length > 0 ? (
                 <div className="grid grid-cols-4 gap-5 text-center py-3">
-                  {currentItems
-                    // .filter((user) => {
-                    //   return search.toLowerCase() === ""
-                    //     ? user
-                    //     : user.name.toLowerCase().includes(search)
-                    //     ? user
-                    //     : user.email.toLowerCase().includes(search)
-                    //     ? user
-                    //     : user.username.toLowerCase().includes(search);
-                    // })
-                    .map((investorr) => {
-                      return (
-                        <div
-                          className="flex flex-col border rounded-lg bg-white p-5 hover:shadow-xl"
-                          key={investorr._id}
-                        >
-                          <div className="mx-auto">
-                            <img
-                              src=""
-                              alt=""
-                              className="h-24 w-24 rounded-full p-1 border-2 border-[rgb(0,223,154)]"
-                            />
-                          </div>
-                          <div className="mt-5">
-                            <h2 className="font-semibold mb-2">
-                              {investorr.name}
-                            </h2>
-                            <p className="my-[1px]">{investorr.username}</p>
-                            <p className="my-[1px] italic">{investorr.email}</p>
-                            <div className="my-[1px]">
-                              {investorr.details ? (
-                                <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
-                                  US${investorr.details.minimum} - US$
-                                  {investorr.details.maximum}
-                                </div>
-                              ) : (
+                  {currentItems.map((investorr) => {
+                    return (
+                      <div
+                        className="flex flex-col border rounded-lg bg-white p-5 hover:shadow-xl"
+                        key={investorr._id}
+                      >
+                        <div className="mx-auto">
+                          <img
+                            src=""
+                            alt=""
+                            className="h-24 w-24 rounded-full p-1 border-2 border-[rgb(0,223,154)]"
+                          />
+                        </div>
+                        <div className="mt-5">
+                          <h2 className="font-semibold mb-2">
+                            {investorr.name}
+                          </h2>
+                          <p className="my-[1px]">{investorr.username}</p>
+                          <p className="my-[1px] italic">{investorr.email}</p>
+                          <div className="my-[1px]">
+                            {investorr.details ? (
+                              <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                                US${investorr.details.minimum} - US$
+                                {investorr.details.maximum}
+                              </div>
+                            ) : (
+                              <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
                                 <p>No Budget</p>
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex justify-around py-3">
+                            <div className="flex items-center flex-col text-sm gap-1">
+                              <Switch
+                                checkedIcon={false}
+                                uncheckedHandleIcon={false}
+                                offColor="#FF0000"
+                                onColor="#00DF9A"
+                                handleDiameter={20}
+                                height={20}
+                                width={40}
+                                onChange={() => {
+                                  toggleActivate(investorr._id);
+                                }}
+                                checked={investorr.active}
+                              />
+                              {actLoad ? (
+                                <p className="">
+                                  <Oval
+                                    height={15}
+                                    width={15}
+                                    color="#00DF9A"
+                                  />
+                                </p>
+                              ) : (
+                                <p className="">Active</p>
                               )}
                             </div>
-                            <div className="flex justify-around py-3">
-                              <div className="flex items-center text-sm">
-                                <Switch
-                                  checkedIcon={false}
-                                  uncheckedHandleIcon={false}
-                                  offColor="#FF0000"
-                                  onColor="#00DF9A"
-                                  handleDiameter={23}
-                                  height={23}
-                                  width={46}
-                                  onChange={() => {
-                                    toggleActivate(investorr._id);
-                                  }}
-                                  checked={investorr.active}
-                                />
-                                {/* {investorr.active ? (
-                                  <span className="rounded-full h-4 w-4 bg-green-500"></span>
-                                  ) : (
-                                    <span className="rounded-full h-4 w-4 bg-red-500"></span>
-                                  )}{" "} */}
-                                <p className="ml-2">Active</p>
-                              </div>
-                              <div className="flex items-center text-sm">
-                                {/* {investorr.subscribed ? (
-                                  <span className="rounded-full h-4 w-4 bg-green-500"></span>
-                                ) : (
-                                  <span className="rounded-full h-4 w-4 bg-red-500"></span>
-                                )}{" "} */}
-                                <Switch
-                                  checkedIcon={false}
-                                  uncheckedHandleIcon={false}
-                                  offColor="#FF0000"
-                                  onColor="#00DF9A"
-                                  handleDiameter={23}
-                                  height={23}
-                                  width={46}
-                                  onChange={() => {
-                                    toggleSubscribe(investorr._id);
-                                  }}
-                                  checked={investorr.subscribed}
-                                />
-                                {subLoad ? (
-                                  <p className="ml-2">
-                                    <Oval
-                                      height={15}
-                                      width={15}
-                                      color="#00DF9A"
-                                    />
-                                  </p>
-                                ) : (
-                                  <p className="ml-2">Subscribed</p>
-                                )}
-                              </div>
-                            </div>
-                            <div className="flex justify-around border-t pt-3 mt-3">
-                              <Link to={`/admin/investors/${investorr._id}`}>
-                                <AiOutlineEye
-                                  size={22}
-                                  title="View"
-                                  className="text-green-500"
-                                />
-                              </Link>
-                              <button
-                                onClick={() => deleteInvestor(investorr._id)}
-                              >
-                                <AiOutlineDelete
-                                  size={22}
-                                  title="Delete"
-                                  className="text-red-500"
-                                />
-                              </button>
+                            <div className="flex items-center flex-col text-sm gap-1">
+                              <Switch
+                                checkedIcon={false}
+                                uncheckedHandleIcon={false}
+                                offColor="#FF0000"
+                                onColor="#00DF9A"
+                                handleDiameter={20}
+                                height={20}
+                                width={40}
+                                onChange={() => {
+                                  toggleSubscribe(investorr._id);
+                                }}
+                                checked={investorr.subscribed}
+                              />
+                              {subLoad ? (
+                                <p className="">
+                                  <Oval
+                                    height={15}
+                                    width={15}
+                                    color="#00DF9A"
+                                  />
+                                </p>
+                              ) : (
+                                <p className="">Subscribed</p>
+                              )}
                             </div>
                           </div>
+                          <div className="flex justify-around border-t pt-3 mt-3">
+                            {/* <Link to={`/admin/investors/${investorr._id}`}>
+                              <AiOutlineEye
+                                size={22}
+                                title="View"
+                                className="text-green-500"
+                              />
+                            </Link> */}
+                            <button
+                              onClick={() => deleteInvestor(investorr._id)}
+                            >
+                              <AiOutlineDelete
+                                size={22}
+                                title="Delete"
+                                className="text-red-500"
+                              />
+                            </button>
+                          </div>
                         </div>
-                      );
-                    })}
+                      </div>
+                    );
+                  })}
                 </div>
               ) : (
                 <p className="text-xl font-bold text-center py-5">

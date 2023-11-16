@@ -121,13 +121,13 @@ const Funds = () => {
                         {moment(fund.createdAt).format("LL")}
                       </td>
                       <td className="py-3 flex justify-between items-center">
-                        <Link to="">
+                        {/* <Link to={`/admin/funds/${fund._id}`}>
                           <AiOutlineEye
                             size={22}
                             title="View"
                             className="text-green-500"
                           />
-                        </Link>
+                        </Link> */}
                         <Link to={`/admin/funds/edit/${fund._id}`}>
                           <AiOutlineEdit
                             size={22}

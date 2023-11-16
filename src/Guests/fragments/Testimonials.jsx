@@ -30,7 +30,7 @@ const Testimonials = () => {
       <div className="max-w-[1200px] mx-auto text-center flex flex-col">
         <h2 className="text-3xl font-semibold mb-3">What Our Customers Say</h2>
         <p className="text-center mb-5">
-          Read on what our investors and enterpreneurs say abuot us
+          Read on what our investors and enterpreneurs say about us
         </p>
         <div className="flex-1">
           {testimonials.length > 0 ? (

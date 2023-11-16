@@ -48,11 +48,8 @@ const InvestorPassword = () => {
         <form>
           <div className="flex flex-col mb-2">
             <div className="flex justify-between items-center mb-3">
-              <h2 className="text-xl font-semibold">Change Password</h2>
-              <button
-                onClick={() => navigate("/admin/users")}
-                className="self-end"
-              >
+              <h2 className="text-xl font-semibold">Change Passwords</h2>
+              <button onClick={() => navigate("/")} className="self-end">
                 <GrFormClose size={25} />
               </button>
             </div>

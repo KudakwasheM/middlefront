@@ -114,37 +114,79 @@ const Proposal = () => {
               <TabPanel>
                 {investor ? (
                   <>
-                    {project.details ? (
-                      <div className="grid grid-cols-1 md:grid-cols-4">
-                        <div className="col-span-3">
-                          <div className="mb-3">
-                            <h1 className="text-2xl">The Business</h1>
-                            <p className="text-gray-700">
-                              {project.details.description}
-                            </p>
+                    {investor.subscribed ? (
+                      <>
+                        {project.details ? (
+                          <div className="grid grid-cols-1 md:grid-cols-4">
+                            <div className="col-span-3">
+                              <div className="mb-3">
+                                <h1 className="text-2xl">The Business</h1>
+                                <p className="text-gray-700">
+                                  {project.details.description}
+                                </p>
+                              </div>
+                              <div className="mb-3">
+                                <h1 className="text-2xl">Project Advantages</h1>
+                                {project.details.advantages ? (
+                                  <>
+                                    {project.details.advantages.map((a) => {
+                                      return (
+                                        <p className="text-gray-700">{a}</p>
+                                      );
+                                    })}
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                              </div>
+                              <div className="mb-3">
+                                <h1 className="text-2xl">The Deal</h1>
+                                <p className="text-gray-700">
+                                  {project.details.deal}
+                                </p>
+                              </div>
+                            </div>
                           </div>
-                          <div className="mb-3">
-                            <h1 className="text-2xl">Project Advantages</h1>
-                            {project.details.advantages ? (
-                              <>
-                                {project.details.advantages.map((a) => {
-                                  return <p className="text-gray-700">{a}</p>;
-                                })}
-                              </>
-                            ) : (
-                              <></>
-                            )}
-                          </div>
-                          <div className="mb-3">
-                            <h1 className="text-2xl">The Deal</h1>
-                            <p className="text-gray-700">
-                              {project.details.deal}
+                        ) : (
+                          <p>No details to show</p>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-full lg:w-[1200px]">
+                          <div className="md:w-[500px] mx-auto p-5 flex flex-col h-full justify-center text-center">
+                            <p className="text-2xl font-semibold ">
+                              Please subscribe to view full details
                             </p>
+                            <p className="text-gray-500 py-3">
+                              Discover the next big thing and invest
+                            </p>
+                            <div className="grid grid-cols-2 gap-5 mt-5">
+                              <a
+                                className="p-3 bg-green-500 text-white font-semibold text-lg"
+                                href="tel:0777492142"
+                              >
+                                Call Us
+                              </a>
+                              <a
+                                className="p-3 bg-sky-500 text-white font-semibold text-lg"
+                                href="mailto:masayakudakwashe@gmail.com"
+                              >
+                                Email Us
+                              </a>
+                            </div>
+                            <p className="text-lg font-semibold mt-5">or</p>
+                            <div className="">
+                              <p className="text-xl font-semibold mt-5">
+                                Visit us at
+                              </p>
+                              <h2 className="text-xl font-semibold mt-5">
+                                13 Address Street
+                              </h2>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ) : (
-                      <p>No details to show</p>
+                      </>
                     )}
                   </>
                 ) : (
@@ -175,7 +217,49 @@ const Proposal = () => {
               </TabPanel>
               <TabPanel>
                 {investor ? (
-                  <h2>No documents</h2>
+                  <>
+                    {investor.subscribed ? (
+                      <>
+                        <p>No documents to show</p>
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-full lg:w-[1200px]">
+                          <div className="md:w-[500px] mx-auto p-5 flex flex-col h-full justify-center text-center">
+                            <p className="text-2xl font-semibold ">
+                              Please subscribe to view documents
+                            </p>
+                            <p className="text-gray-500 py-3">
+                              Discover the next big thing and invest
+                            </p>
+                            <div className="grid grid-cols-2 gap-5 mt-5">
+                              <a
+                                className="p-3 bg-green-500 text-white font-semibold text-lg"
+                                href="tel:0777492142"
+                              >
+                                Call Us
+                              </a>
+                              <a
+                                className="p-3 bg-sky-500 text-white font-semibold text-lg"
+                                href="mailto:masayakudakwashe@gmail.com"
+                              >
+                                Email Us
+                              </a>
+                            </div>
+                            <p className="text-lg font-semibold mt-5">or</p>
+                            <div className="">
+                              <p className="text-xl font-semibold mt-5">
+                                Visit us at
+                              </p>
+                              <h2 className="text-xl font-semibold mt-5">
+                                13 Address Street
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </>
                 ) : (
                   <div className="h-[250px] w-full lg:w-[1200px]">
                     <div className="md:w-[300px] mx-auto flex flex-col h-full justify-center text-center">

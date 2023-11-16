@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
   AiOutlineAccountBook,
+  AiOutlineCaretDown,
+  AiOutlineCaretUp,
   AiOutlineDashboard,
   AiOutlineDollar,
   AiOutlineHome,
   AiOutlineLogout,
   AiOutlineProject,
+  AiOutlineSwap,
   AiOutlineTeam,
   AiOutlineUser,
 } from "react-icons/ai";
@@ -17,6 +20,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Administration = () => {
+  const [open, setOpen] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const [logoutApiCall] = useLogoutMutation();
   const dispatch = useDispatch();
@@ -136,12 +140,73 @@ const Administration = () => {
       <div className="flex flex-col h-screen max-h-screen col-span-5">
         <div className="flex border-b h-14 items-center justify-end p-5 bg-white">
           {userInfo ? (
-            <p className="flex items-center p-2  hover:shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full">
-              {userInfo?.name}
-              <span>
+            <div
+              className={`absolute ${
+                open
+                  ? "shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
+                  : ""
+              } hover:shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full`}
+            >
+              <p
+                className="flex items-center p-2 "
+                onClick={() => {
+                  setOpen(!open);
+                  setTimeout(() => {
+                    setOpen(false);
+                  }, 5000);
+                }}
+              >
+                {userInfo?.name}
                 <AiOutlineUser size={20} className="ml-2" />
-              </span>
-            </p>
+                {open ? (
+                  <AiOutlineCaretUp size={10} />
+                ) : (
+                  <AiOutlineCaretDown size={10} className="" />
+                )}
+              </p>
+              <div
+                className={`${
+                  open
+                    ? "block z-10 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-full"
+                    : "hidden"
+                } absolute top-[50px] right-1 border bg-white py-5 px-3 rounded-lg w-[250px] before:content-[''] before:absolute before:top-[-50px] before:h-[40px] before:w-[40px]`}
+              >
+                <div className="text-center mb-3">
+                  <h3 className="text-lg">{userInfo?.name}</h3>
+                  <h4 className="text-sm">{userInfo.role}</h4>
+                </div>
+                <ul>
+                  <Link
+                    to={`/admin/profile`}
+                    className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
+                  >
+                    <span className="mr-2">
+                      <AiOutlineUser size={20} className="ml-2" />
+                    </span>
+                    <p>My Profile</p>
+                  </Link>
+                  <Link
+                    to={`/admin/changepassword`}
+                    className="flex items-center border-t py-2 hover:text-[rgb(0,223,154)]"
+                  >
+                    <span className="mr-2">
+                      <AiOutlineSwap size={20} className="ml-2" />
+                    </span>
+                    <p>Change Password</p>
+                  </Link>
+                  <Link
+                    to="/"
+                    onClick={logoutHandler}
+                    className="flex items-center border-t py-2 hover:text-red-500"
+                  >
+                    <span className="mr-2">
+                      <AiOutlineLogout size={20} className="ml-2" />
+                    </span>
+                    <p>Log Out</p>
+                  </Link>
+                </ul>
+              </div>
+            </div>
           ) : (
             ""
           )}

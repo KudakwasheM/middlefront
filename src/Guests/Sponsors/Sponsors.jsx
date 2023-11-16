@@ -16,7 +16,7 @@ const Sponsors = () => {
     });
   };
 
-  const itemsPerPage = 2;
+  const itemsPerPage = 9;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = investors.slice(itemOffset, endOffset);

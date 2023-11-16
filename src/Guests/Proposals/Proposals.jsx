@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GoLocation } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { useGetAllProjectsQuery } from "../../slices/projectsApiSlice";
 import axiosClient from "../../axiosClient";
@@ -11,10 +11,12 @@ const Proposals = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [queryParams] = useSearchParams();
+
   const getProjects = async () => {
     setLoading(true);
     await axiosClient
-      .get("/projects")
+      .get("/projects/all/published")
       .then((res) => {
         setLoading(false);
         setProjects(res?.data?.projects);
@@ -25,15 +27,27 @@ const Proposals = () => {
       });
   };
 
+  const filteredProjects = projects.filter((project) => {
+    const opportunity = queryParams.get("opportunity");
+    if (!opportunity) {
+      return true; // No opportunity parameter, return all projects
+    }
+    return (
+      project.industry
+        .map((i) => i.toLowerCase())
+        .filter((i) => i.includes(opportunity.toLowerCase())).length > 0
+    );
+  });
+
   const { data, isLoading, isSuccess, isError } = useGetAllProjectsQuery();
   const itemsPerPage = 4;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = projects.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(projects.length / itemsPerPage);
+  const currentItems = filteredProjects.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(filteredProjects.length / itemsPerPage);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % projects.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredProjects.length;
     setItemOffset(newOffset);
   };
 
