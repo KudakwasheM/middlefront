@@ -110,10 +110,10 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/register/success", element: <SuccessRegister /> },
-  { path: "/verified/:id/:token", element: <Verified /> },
+  { path: "/account/verification/:id/:token", element: <Verified /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/reset/:id/:token", element: <ResetPassword /> },
-  { path: "*", element: <NotFound /> },
+  { path: "/*", element: <NotFound /> },
 ]);
 
 export default router;
