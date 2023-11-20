@@ -26,7 +26,8 @@ const Login = () => {
         case "Admin":
           navigate("/admin");
           break;
-        case "Enterprenuer":
+        case "Enterpreneur":
+          console.log("Ko?");
           navigate("/enterpreneur");
           break;
         case "Investor":
@@ -78,7 +79,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="flex flex-col mb-2">
+          <div className="flex flex-col mb-1">
             <label htmlFor="" className="mb-1">
               Password
             </label>
@@ -89,6 +90,15 @@ const Login = () => {
               placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+          <div className="flex items-center  justify-end">
+            <Link
+              to={"/forgot-password"}
+              className="text-sky-500 text-xs right-0 hover:underline"
+            >
+              Forgot Password
+            </Link>
+            ?
           </div>
           <div className="">
             <button

@@ -34,6 +34,8 @@ import ChangePassword from "./layouts/profile/ChangePassword";
 import InvestorPassword from "./investor/profile/InvestorPassword";
 import SuccessRegister from "./Guests/SuccessRegister";
 import Verified from "./Guests/Verified";
+import ResetPassword from "./Guests/ResetPassword";
+import ForgotPassword from "./Guests/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -109,6 +111,8 @@ const router = createBrowserRouter([
   { path: "/register", element: <Register /> },
   { path: "/register/success", element: <SuccessRegister /> },
   { path: "/verified/:id/:token", element: <Verified /> },
+  { path: "/forgot-password", element: <ForgotPassword /> },
+  { path: "/reset/:id/:token", element: <ResetPassword /> },
   { path: "*", element: <NotFound /> },
 ]);
 
