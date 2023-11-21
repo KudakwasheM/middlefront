@@ -32,7 +32,7 @@ const ForgotPassword = () => {
   return (
     <div className="h-screen w-screen flex items-center justify-center">
       <div className="flex flex-col border md:w-[400px] p-5">
-        <button onClick={() => navigate("/")} className="self-end">
+        <button onClick={() => navigate("/login")} className="self-end">
           <GrFormClose size={25} />
         </button>
         <h1 className="text-center text-[rgb(0,223,154)] text-4xl font-bold mb-5">

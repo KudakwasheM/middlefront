@@ -110,9 +110,9 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/register/success", element: <SuccessRegister /> },
-  { path: "/account/:id/:token/verification", element: <Verified /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/reset/:id/:token", element: <ResetPassword /> },
+  { path: "/account/:id/:token/verification", element: <Verified /> },
   { path: "/*", element: <NotFound /> },
 ]);
 

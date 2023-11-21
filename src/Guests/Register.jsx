@@ -69,21 +69,12 @@ const Register = () => {
         })
         .catch((err) => {
           setLoading(false);
-          toast.error(err?.response?.data?.message || err.error);
+          if (err.code == "ERR_NETWORK") {
+            toast.error("Please check your connection");
+          } else {
+            toast.error(err?.response?.data?.message || err.error);
+          }
         });
-      // try {
-      //   const res = await register({
-      //     name,
-      //     username,
-      //     email,
-      //     role,
-      //     password,
-      //   }).unwrap();
-      //   dispatch(setCredentials({ ...res }));
-      //   // navigate("/");
-      // } catch (err) {
-      //   toast.error(err?.data?.message || err.error);
-      // }
     }
   };
 
@@ -194,7 +185,7 @@ const Register = () => {
           </div>
         </form>
         <p className="text-sm">
-          You do not have an account?{" "}
+          You already have an account?{" "}
           <Link to="/login" className="text-[rgb(0,223,154)] hover:underline">
             Login
           </Link>

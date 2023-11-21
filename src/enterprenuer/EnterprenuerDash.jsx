@@ -14,10 +14,10 @@ const EnterprenuerDash = () => {
         <CustomLoader />
       ) : (
         <div className="p-5">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="flex gap-5 lg:gap-20 justify-around">
             <a
               href="/admin/projects"
-              className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
+              className="flex flex-1 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
             >
               <div className="flex-1">
                 <h2 className="font-bold">{}</h2>
@@ -29,7 +29,7 @@ const EnterprenuerDash = () => {
             </a>
             <a
               href="/admin/investors"
-              className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
+              className="flex flex-1 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
             >
               <div className="flex-1">
                 <h2 className="font-bold">{}</h2>
@@ -41,7 +41,7 @@ const EnterprenuerDash = () => {
             </a>
             <a
               href="/admin/funds"
-              className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
+              className="flex flex-1 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
             >
               <div className="flex-1">
                 <h2 className="font-bold">{}</h2>
@@ -51,7 +51,7 @@ const EnterprenuerDash = () => {
                 <AiOutlineDollar size={20} />
               </div>
             </a>
-            <a
+            {/* <a
               href="/admin/users"
               className="flex shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-3"
             >
@@ -62,7 +62,7 @@ const EnterprenuerDash = () => {
               <div className="p-3 bg-[rgb(0,223,154)] text-white">
                 <AiOutlineTeam size={20} />
               </div>
-            </a>
+            </a> */}
           </div>
         </div>
       )}
