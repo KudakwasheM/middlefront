@@ -36,6 +36,7 @@ import SuccessRegister from "./Guests/SuccessRegister";
 import Verified from "./Guests/Verified";
 import ResetPassword from "./Guests/ResetPassword";
 import ForgotPassword from "./Guests/ForgotPassword";
+import Verification from "./Guests/Verification";
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,7 @@ const router = createBrowserRouter([
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/reset/:id/:token", element: <ResetPassword /> },
   { path: "/account/:id/:token/verification", element: <Verified /> },
+  { path: "/verify/account/:id/:token", element: <Verification /> },
   { path: "/*", element: <NotFound /> },
 ]);
 
