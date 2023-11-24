@@ -41,7 +41,6 @@ const Funds = () => {
       .get("/funds")
       .then((res) => {
         setLoading(false);
-        console.log(res?.data?.funds);
         setFunds(res?.data?.funds);
       })
       .catch((err) => {
@@ -106,52 +105,54 @@ const Funds = () => {
                 <th className="text-start py-2 ">Actions</th>
               </tr>
             </thead>
-            {currentItems.length > 0 ? (
-              <tbody>
-                {currentItems.map((fund) => {
-                  return (
-                    <tr className="border-t">
-                      <td className="py-3">{fund.amount}</td>
-                      <td className="py-3">{fund.investor.name}</td>
-                      <td className="py-3">{fund.project.name}</td>
-                      <td className="py-3">
-                        {fund.project_percentage.toFixed(2)}%
-                      </td>
-                      <td className="py-3">
-                        {moment(fund.createdAt).format("LL")}
-                      </td>
-                      <td className="py-3 flex justify-between items-center">
-                        {/* <Link to={`/admin/funds/${fund._id}`}>
+            <tbody>
+              {currentItems.length > 0 ? (
+                <>
+                  {currentItems.map((fund) => {
+                    return (
+                      <tr className="border-t">
+                        <td className="py-3">{fund.amount}</td>
+                        <td className="py-3">{fund.investor.name}</td>
+                        <td className="py-3">{fund.project.name}</td>
+                        <td className="py-3">
+                          {fund.project_percentage.toFixed(2)}%
+                        </td>
+                        <td className="py-3">
+                          {moment(fund.createdAt).format("LL")}
+                        </td>
+                        <td className="py-3 flex justify-between items-center">
+                          {/* <Link to={`/admin/funds/${fund._id}`}>
                           <AiOutlineEye
                             size={22}
                             title="View"
                             className="text-green-500"
                           />
                         </Link> */}
-                        <Link to={`/admin/funds/edit/${fund._id}`}>
-                          <AiOutlineEdit
-                            size={22}
-                            title="Edit"
-                            className="text-sky-500"
-                          />
-                        </Link>
-                        <button onClick={() => deleteFund(fund._id)}>
-                          <AiOutlineDelete
-                            size={22}
-                            title="Delete"
-                            className="text-red-500"
-                          />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            ) : (
-              <tbody>
-                <tr col={4}>No Funds found</tr>
-              </tbody>
-            )}
+                          <Link to={`/admin/funds/edit/${fund._id}`}>
+                            <AiOutlineEdit
+                              size={22}
+                              title="Edit"
+                              className="text-sky-500"
+                            />
+                          </Link>
+                          <button onClick={() => deleteFund(fund._id)}>
+                            <AiOutlineDelete
+                              size={22}
+                              title="Delete"
+                              className="text-red-500"
+                            />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </>
+              ) : (
+                <tr col={6} className="text-center text-red-500">
+                  No Funds found
+                </tr>
+              )}
+            </tbody>
           </table>
           <ReactPaginate
             previousLabel={"← Prev "}

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axiosClient from "../../axiosClient";
 import { toast } from "react-toastify";
 import CustomLoader from "../../Guests/components/CustomLoader";
+import { useSelector } from "react-redux";
+import { AiOutlineEdit } from "react-icons/ai";
 
 const Project = () => {
   const { id } = useParams();
+  const { userInfo } = useSelector((state) => state.auth);
   const [project, setProject] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -56,15 +59,34 @@ const Project = () => {
                 )}
               </div>
               )
+              <Link to={`/enterpreneur/myprojects/edit/${project._id}`}>
+                <AiOutlineEdit
+                  size={22}
+                  title="Edit"
+                  className="text-green-500"
+                />
+              </Link>
             </div>
-            <button
-              onClick={publish}
-              className={`${
-                project.published ? "bg-gray-400" : "bg-blue-600"
-              } text-white py-3 px-4 rounded-sm hover:shadow-md`}
-            >
-              {project.published ? "Unpublish" : "Publish"}
-            </button>
+            {userInfo.role == "Admin" ? (
+              <button
+                onClick={publish}
+                className={`${
+                  project.published ? "bg-gray-400" : "bg-blue-600"
+                } text-white py-3 px-4 rounded-sm hover:shadow-md`}
+              >
+                {project.published ? "Unpublish" : "Publish"}
+              </button>
+            ) : (
+              <p
+                className={`${
+                  project.published
+                    ? "border-blue-600 text-blue-600"
+                    : "border-gray-400 text-gray-400"
+                }  py-3 border-2 px-4 rounded-sm hover:shadow-md`}
+              >
+                {project.published ? "Published" : "Not published"}
+              </p>
+            )}
           </div>
           <div className="flex justify-around flex-wrap mb-3 border">
             <div className="p-3">
@@ -134,7 +156,7 @@ const Project = () => {
                     })}
                   </div>
                 ) : (
-                  <>No Team Members</>
+                  <div className="text-red-500">No Team Members</div>
                 )}
               </div>
             </>

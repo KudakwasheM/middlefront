@@ -27,7 +27,6 @@ const Login = () => {
           navigate("/admin");
           break;
         case "Enterpreneur":
-          console.log("Ko?");
           navigate("/enterpreneur");
           break;
         case "Investor":

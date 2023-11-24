@@ -38,7 +38,7 @@ const Testimonials = () => {
               <Testimonial slides={testimonials} />
             </>
           ) : (
-            <></>
+            <div className="text-red-500">No testimonials found</div>
           )}
         </div>
         <div className="">

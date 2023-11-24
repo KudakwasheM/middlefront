@@ -107,7 +107,6 @@ const FundsForm = () => {
           toast.error(err?.response?.data?.message);
         });
     } else {
-      console.log(fund);
       setSaveLoad(true);
       await axiosClient
         .post("/funds", fund)

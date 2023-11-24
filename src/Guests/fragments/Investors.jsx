@@ -11,7 +11,7 @@ const Investors = () => {
   const getInvestors = async () => {
     setLoading(true);
     await axiosClient
-      .get("/users/investors")
+      .get("/users/investors/published")
       .then((res) => {
         setLoading(false);
         setInvestors(res?.data?.users.splice(-3));
@@ -87,7 +87,7 @@ const Investors = () => {
               })}
             </>
           ) : (
-            <></>
+            <div className="text-red-500">No investors found</div>
           )}
         </div>
         <div className="text-center">

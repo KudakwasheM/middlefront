@@ -1,13 +1,12 @@
 import { Navigate, Route, createBrowserRouter } from "react-router-dom";
 import Guests from "./layouts/Guests";
 import Administration from "./layouts/Administration";
-import Enterprenuer from "./layouts/Enterprenuer";
+import Enterpreneur from "./layouts/Enterpreneur";
 import Investor from "./layouts/Investor";
 import Index from "./Guests/Index";
 import Login from "./Guests/Login";
 import Register from "./Guests/Register";
 import AdminDash from "./administration/AdminDash";
-import EnterprenuerDash from "./enterprenuer/EnterprenuerDash";
 import NotFound from "./NotFound";
 import InvestorDash from "./investor/InvestorDash";
 import Users from "./administration/users/Users";
@@ -27,7 +26,6 @@ import Funds from "./administration/funds/Funds";
 import FundsForm from "./administration/funds/FundsForm";
 import Fund from "./administration/funds/Fund";
 import Profile from "./layouts/profile/Profile";
-import EnterpreneurProjects from "./enterprenuer/myprojects/EnterpreneurProjects";
 import InvestorProfile from "./investor/profile/InvestorProfile";
 import InvestorUpdate from "./investor/profile/InvestorUpdate";
 import ChangePassword from "./layouts/profile/ChangePassword";
@@ -37,6 +35,9 @@ import Verified from "./Guests/Verified";
 import ResetPassword from "./Guests/ResetPassword";
 import ForgotPassword from "./Guests/ForgotPassword";
 import Verification from "./Guests/Verification";
+import EnterpreneurProjects from "./enterprenuer/myprojects/EnterpreneurProjects";
+import EnterpreneurDash from "./enterprenuer/EnterpreneurDash";
+import MyInvestors from "./enterprenuer/myinvestor/MyInvestors";
 
 const router = createBrowserRouter([
   {
@@ -77,16 +78,32 @@ const router = createBrowserRouter([
   },
   {
     path: "/enterpreneur",
-    element: <Enterprenuer />,
+    element: <Enterpreneur />,
     children: [
       {
         path: "/enterpreneur",
         element: <Navigate to="/enterpreneur/dashboard" />,
       },
-      { path: "dashboard", element: <EnterprenuerDash /> },
+      { path: "dashboard", element: <EnterpreneurDash /> },
       {
         path: "myprojects",
         element: <EnterpreneurProjects />,
+      },
+      {
+        path: "myprojects/create",
+        element: <ProjectForm />,
+      },
+      {
+        path: "myprojects/edit/:id",
+        element: <ProjectForm />,
+      },
+      {
+        path: "myprojects/:id",
+        element: <Project />,
+      },
+      {
+        path: "myinvestors",
+        element: <MyInvestors />,
       },
       {
         path: "profile",

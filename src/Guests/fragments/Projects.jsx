@@ -108,7 +108,7 @@ const Projects = () => {
               })}
             </div>
           ) : (
-            <p className="text-xl font-bold text-center py-5">
+            <p className="text-xl text-red-500 font-bold text-center py-5">
               No projects found
             </p>
           )}

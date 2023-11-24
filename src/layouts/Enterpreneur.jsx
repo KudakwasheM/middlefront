@@ -8,6 +8,7 @@ import {
   AiOutlineDollar,
   AiOutlineHome,
   AiOutlineLogout,
+  AiOutlinePercentage,
   AiOutlineProject,
   AiOutlineSwap,
   AiOutlineTeam,
@@ -20,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Enterprenuer = () => {
+const Enterpreneur = () => {
   const [open, setOpen] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth);
@@ -43,7 +44,7 @@ const Enterprenuer = () => {
     } else {
       const role = userInfo.role;
       switch (role) {
-        case "Enterprenuer":
+        case "Enterpreneur":
           navigate("/enterpreneur/dashboard");
           break;
         case "Investor":
@@ -95,12 +96,12 @@ const Enterprenuer = () => {
             }
           >
             <span className="mr-2">
-              <AiOutlineProject size={25} />
+              <AiOutlinePercentage size={25} />
             </span>
             My Investors
           </NavLink>
-          {/* <NavLink
-            to="/enterpreneur/funds"
+          <NavLink
+            to="/enterpreneur/myfunds"
             className={({ isActive }) =>
               isActive
                 ? "p-3 mb-1 w-full flex items-center bg-white shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] text-black"
@@ -111,20 +112,7 @@ const Enterprenuer = () => {
               <AiOutlineDollar size={25} />
             </span>
             Funds
-          </NavLink> */}
-          {/* <NavLink
-            to="/enterpreneur/users"
-            className={({ isActive }) =>
-              isActive
-                ? "p-3 mb-1 w-full flex items-center bg-white shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] text-black"
-                : "p-3 mb-1 w-full flex items-center hover:shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] hover:text-black"
-            }
-          >
-            <span className="mr-2">
-              <AiOutlineTeam size={25} />
-            </span>
-            Users
-          </NavLink> */}
+          </NavLink>
         </div>
         <div className="mt-2">
           <NavLink
@@ -151,7 +139,12 @@ const Enterprenuer = () => {
             >
               <p
                 className="flex items-center p-2 "
-                onClick={() => setOpen(!open)}
+                onClick={() => {
+                  setOpen(!open);
+                  setTimeout(() => {
+                    setOpen(false);
+                  }, 5000);
+                }}
               >
                 {userInfo?.name}
                 <AiOutlineUser size={20} className="ml-2" />
@@ -217,4 +210,4 @@ const Enterprenuer = () => {
   );
 };
 
-export default Enterprenuer;
+export default Enterpreneur;

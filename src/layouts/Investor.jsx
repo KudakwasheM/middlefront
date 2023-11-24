@@ -29,7 +29,7 @@ const Investor = () => {
     } else {
       const role = userInfo.role;
       switch (role) {
-        case "Enterprenuer":
+        case "Enterpreneur":
           navigate("/enterpreneur/dashboard");
           break;
         case "Admin":

@@ -29,7 +29,7 @@ const Register = () => {
         case "Admin":
           navigate("/admin");
           break;
-        case "Interprenuer":
+        case "Interpreneur":
           navigate("/enterpreneur");
           break;
         case "Investor":
@@ -96,10 +96,10 @@ const Register = () => {
                 type="radio"
                 name="role"
                 id="enterpreneur"
-                value="Enterprenuer"
+                value="Enterpreneur"
                 onChange={(e) => setRole(e.target.value)}
               />
-              Enterprenuer
+              Enterpreneur
             </div>
             <div className="justify-around">
               <input

@@ -18,9 +18,11 @@ import { useGetEnterpreneursQuery } from "../../slices/usersApiSlice";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import axiosClient from "../../axiosClient";
 import CustomLoader from "../../Guests/components/CustomLoader";
+import { useSelector } from "react-redux";
 
 const ProjectForm = () => {
   const { id } = useParams();
+  const { userInfo } = useSelector((state) => state.auth);
   const [detailsId, setDetailsId] = useState("");
   const [memberIds, setMemberIds] = useState();
   const [loading, setLoading] = useState(false);
@@ -61,16 +63,6 @@ const ProjectForm = () => {
   const [enterpreneurs, setEnterpreneurs] = useState([]);
   const [data, setData] = useState([]);
   const [hidden, setHidden] = useState(false);
-  // const [name, setName] = useState("");
-  // const [website, setWebsite] = useState("");
-  // const [location, setLocation] = useState("");
-  // const [mobile, setMobile] = useState("");
-  // const [industry, setIndustry] = useState([]);
-  // const [expectedFund, setExpectedFund] = useState(0);
-  // const [raisedFund, setRaisedFund] = useState(0);
-  // const [percentage, setPercentage] = useState(0);
-  // const [stage, setStage] = useState("");
-  // const [enter, setEnter] = useState("");
 
   const navigate = useNavigate();
 
@@ -246,6 +238,7 @@ const ProjectForm = () => {
   useEffect(() => {
     getEnterpreneurs();
     // setLoad();
+    console.log(proj);
   }, []);
 
   return (
@@ -256,7 +249,7 @@ const ProjectForm = () => {
         <div className="m-5 p-4 w-[600px] mx-auto border">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold mb-3 text-[rgba(0,223,154,0.65)]">
-              {proj ? "Update Project" : "Add Project"}{" "}
+              {proj.name != "" ? "Update Project" : "Add Project"}
             </h2>
             <button
               onClick={() => navigate(-1)}
@@ -386,15 +379,20 @@ const ProjectForm = () => {
                       }
                     />
                   </div>
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="">Enterpreneur</label>
-                    <Select
-                      options={data}
-                      isClearable={true}
-                      isSearchable={true}
-                      onChange={changeEnter}
-                    />
-                  </div>
+
+                  {userInfo.role != "Enterpreneur" ? (
+                    <div className="flex flex-col mb-2">
+                      <label htmlFor="">Enterpreneur</label>
+                      <Select
+                        options={data}
+                        isClearable={true}
+                        isSearchable={true}
+                        onChange={changeEnter}
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                   {/* {usersSelect} */}
                   <div className="">
                     <button

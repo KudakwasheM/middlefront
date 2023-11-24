@@ -162,7 +162,7 @@ const AdminDash = () => {
                     })}
                   </>
                 ) : (
-                  <tr cols={4} className="text-center">
+                  <tr cols={6} className="text-center text-red-500">
                     No Funds Found
                   </tr>
                 )}
@@ -216,8 +216,8 @@ const AdminDash = () => {
                     })}
                   </>
                 ) : (
-                  <tr cols={4} className="text-center">
-                    No Funds Found
+                  <tr cols={7} className="text-center text-red-500">
+                    No Users Found
                   </tr>
                 )}
               </tbody>

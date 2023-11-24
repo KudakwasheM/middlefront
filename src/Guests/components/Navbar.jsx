@@ -120,7 +120,12 @@ const Navbar = ({ route }) => {
                 >
                   <p
                     className="flex items-center p-2 "
-                    onClick={() => setOpen(!open)}
+                    onClick={() => {
+                      setOpen(!open);
+                      setTimeout(() => {
+                        setOpen(false);
+                      }, 5000);
+                    }}
                   >
                     {investor?.name}
                     <AiOutlineUser size={20} className="ml-2" />

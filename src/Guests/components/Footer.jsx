@@ -39,7 +39,7 @@ const Footer = () => {
             <Link className="text-sm">Testimonials</Link>
           </div>
           <div className="flex flex-col">
-            <h2 className="text-lg mb-3">Enterprenuers & Investors</h2>
+            <h2 className="text-lg mb-3">Enterpreneurs & Investors</h2>
             <Link className="text-sm">Register</Link>
             <Link className="text-sm">Proposals</Link>
             <Link className="text-sm">Investors</Link>

@@ -91,7 +91,7 @@ const Projects = () => {
       </div>
       <input
         type="text"
-        placeholder="Search for a user (name, email, username, role)"
+        placeholder="Search for a project (name, email, username, role)"
         className="w-full p-2 text-lg border rounded-lg"
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -184,7 +184,7 @@ const Projects = () => {
                   })}
                 </div>
               ) : (
-                <p className="text-xl font-bold text-center py-5">
+                <p className="text-xl text-red-500 font-bold text-center py-5">
                   No projects found
                 </p>
               )}
