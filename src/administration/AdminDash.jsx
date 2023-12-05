@@ -193,8 +193,28 @@ const AdminDash = () => {
                           <td className="py-3">{user.username}</td>
                           <td className="py-3">{user.email}</td>
                           <td className="py-3">{user.role}</td>
-                          <td className="py-3">{user.status}</td>
-                          <td className="py-3">{user.subscribed}</td>
+                          <td className="py-3 text-center">
+                            {user.active ? (
+                              <p className="border inline-flex border-[rgb(0,223,154)] rounded-full p-1 text-xs text-center text-[rgb(0,223,154)]">
+                                Active
+                              </p>
+                            ) : (
+                              <p className="inline-flex border border-red-500 rounded-full p-1 text-xs text-center text-red-500">
+                                Not Active
+                              </p>
+                            )}
+                          </td>
+                          <td className="py-3 text-center">
+                            {user.subscribed ? (
+                              <p className="inline-flex border border-[rgb(0,223,154)] rounded-full p-1 text-xs text-center text-[rgb(0,223,154)]">
+                                Subscribed
+                              </p>
+                            ) : (
+                              <p className="inline-flex border border-red-500 rounded-full p-1 text-xs text-center text-red-500">
+                                Not Subscribed
+                              </p>
+                            )}
+                          </td>
                           <td className="py-3 flex justify-between items-center">
                             <Link to={`/admin/users/${user._id}`}>
                               <AiOutlineEye
