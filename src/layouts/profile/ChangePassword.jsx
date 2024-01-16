@@ -35,7 +35,6 @@ const ChangePassword = () => {
           setLoading(false);
           toast.error(err?.response?.data?.message || err.error);
         });
-      console.log("first");
     } else {
       toast.error("Passwords do not match");
       setLoading(false);

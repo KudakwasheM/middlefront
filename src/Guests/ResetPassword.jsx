@@ -14,8 +14,6 @@ const ResetPassword = () => {
 
   const resetPassword = async (e) => {
     e.preventDefault();
-    console.log(token);
-    console.log(id);
     if (password !== "" && confirmPassword !== "") {
       if (password === confirmPassword) {
         setLoading(true);

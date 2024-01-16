@@ -21,6 +21,7 @@ import Project from "./administration/projects/Project";
 import Projects from "./administration/projects/Projects";
 import ProjectForm from "./administration/projects/ProjectForm";
 import Investors from "./administration/investors/Investors";
+import InvestorShow from "./administration/investors/InvestorShow";
 import User from "./administration/users/User";
 import Funds from "./administration/funds/Funds";
 import FundsForm from "./administration/funds/FundsForm";
@@ -38,6 +39,9 @@ import Verification from "./Guests/Verification";
 import EnterpreneurProjects from "./enterprenuer/myprojects/EnterpreneurProjects";
 import EnterpreneurDash from "./enterprenuer/EnterpreneurDash";
 import MyInvestors from "./enterprenuer/myinvestor/MyInvestors";
+import MyFunds from "./enterprenuer/myfunds/MyFunds";
+import Error from "./Error";
+import Test from "./test/Test";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +72,7 @@ const router = createBrowserRouter([
       { path: "funds/create", element: <FundsForm /> },
       { path: "funds/edit/:id", element: <FundsForm /> },
       { path: "investors", element: <Investors /> },
+      { path: "investors/:id", element: <InvestorShow /> },
       { path: "users", element: <Users /> },
       { path: "users/:id", element: <User /> },
       { path: "users/create", element: <UsersForm /> },
@@ -106,6 +111,10 @@ const router = createBrowserRouter([
         element: <MyInvestors />,
       },
       {
+        path: "myfunds",
+        element: <MyFunds />,
+      },
+      {
         path: "profile",
         element: <Profile />,
       },
@@ -132,6 +141,8 @@ const router = createBrowserRouter([
   { path: "/reset/:id/:token", element: <ResetPassword /> },
   { path: "/account/:id/:token/verification", element: <Verified /> },
   { path: "/verify/account/:id/:token", element: <Verification /> },
+  { path: "/test", element: <Test /> },
+  { path: "/error", element: <Error /> },
   { path: "/*", element: <NotFound /> },
 ]);
 

@@ -72,7 +72,6 @@ const FundsForm = () => {
       .get(`/funds/${id}`)
       .then((res) => {
         setLoading(false);
-        console.log(res.data.fund);
         setFund(res?.data?.fund);
       })
       .catch((err) => {

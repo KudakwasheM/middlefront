@@ -18,7 +18,6 @@ const User = () => {
       .get(`/users/${id}`)
       .then((res) => {
         setLoading(false);
-        console.log(res?.data?.user);
         setUser(res?.data?.user);
       })
       .catch((err) => {
@@ -35,51 +34,62 @@ const User = () => {
       {loading ? (
         <CustomLoader />
       ) : (
-        <div className="flex gap-5">
-          <img
-            src=""
-            className="ml-5 h-28 w-28 border p-1 border-[rgb(0,223,154)] rounded-full mb-4"
-            alt=""
-          />
-          <div className="p-5 border ">
-            <div className="">
-              <tbody>
-                <tr>
-                  <td className="w-[200px] text-xl py-3">Name:</td>
-                  <td className=" text-xl font-semibold">{user.name}</td>
-                </tr>
-                <tr>
-                  <td className="w-[200px] text-xl py-3">Email:</td>
-                  <td className="text-xl font-semibold">{user.email}</td>
-                </tr>
-                <tr>
-                  <td className="w-[200px] text-xl py-3">Username:</td>
-                  <td className="text-xl font-semibold">{user.username}</td>
-                </tr>
-                <tr>
-                  <td className="w-[200px] text-xl py-3">Role:</td>
-                  <td className="text-xl font-semibold">{user.role}</td>
-                </tr>
-              </tbody>
-              <div className="grid grid-cols-2 mt-5 gap-3 w-full">
-                <Link
-                  to={`/admin/users/edit/${user._id}`}
-                  className="bg-[rgb(0,0,255)] py-3 text-white text-center"
-                >
-                  Edit
-                </Link>
-                <button
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                  className="bg-[rgb(255,0,0)] py-3 text-white"
-                >
-                  Cancel
-                </button>
+        <>
+          <div className="flex justify-center items-center gap-5">
+            <div className="p-5">
+              <img
+                src=""
+                className="ml-5 h-32 w-32 border p-1 border-[rgb(0,223,154)] rounded-full mb-4"
+                alt=""
+              />
+            </div>
+
+            <div className="p-5 w-full">
+              <div className="grid grid-cols-2 gap-5 m-3 flex-1">
+                <div className="p-3 border">
+                  <h3 className="text-[rgb(0,223,154)] font-semibold text-lg mb-1">
+                    Name
+                  </h3>
+                  <p className="">{user.name}</p>
+                </div>
+                <div className="p-3 border">
+                  <h3 className="text-[rgb(0,223,154)] font-semibold text-lg mb-1">
+                    Username
+                  </h3>
+                  <p className="">{user.username}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-5 m-3">
+                <div className="p-3 border">
+                  <h3 className="text-[rgb(0,223,154)] font-semibold text-lg mb-1">
+                    Email
+                  </h3>
+                  <p className="">{user.email}</p>
+                </div>
+                <div className="p-3 border ">
+                  <h3 className="text-[rgb(0,223,154)] font-semibold text-lg mb-1">
+                    Username
+                  </h3>
+                  <p className="">{user.role}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <div className="grid grid-cols-2 gap-5 mt-5 md:w-[50%] mx-auto">
+            <Link
+              to={`/admin/users/edit/${user._id}`}
+              className="text-center bg-sky-500 text-white font-semi-bold py-3"
+            >
+              Edit
+            </Link>
+            <button
+              className="text-center bg-red-500 text-white font-semi-bold py-3"
+              onClick={() => navigate(-1)}
+            >
+              Go back
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

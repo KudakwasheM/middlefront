@@ -3,11 +3,14 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { BsPencil } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import axiosClient from "../../axiosClient";
+import moment from "moment";
 
 const Profile = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [user, setUser] = useState({});
   const [profile, setProfile] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
+  const [full, setFull] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const imageRef = useRef(null);
@@ -17,9 +20,13 @@ const Profile = () => {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-    setProfile(file);
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const profileURL = URL.createObjectURL(file);
+      setFull(true);
+      setProfile(file);
+      setFileUrl(profileURL);
+    }
   };
 
   const getDetails = async () => {
@@ -29,13 +36,27 @@ const Profile = () => {
       .get(`/users/${userInfo._id}`)
       .then((res) => {
         setLoading(false);
-        console.log(res?.data?.user);
         setUser(res?.data?.user);
       })
       .catch((err) => {
         setLoading(false);
         toast.error(err.message);
       });
+  };
+
+  const upload = async () => {
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("profile", profile);
+    formData.append("profileUrl", fileUrl);
+
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" },
+    };
+    await axiosClient.post("/users/image", formData, config).then((res) => {
+      console.log(res);
+    });
   };
 
   useEffect(() => {
@@ -63,13 +84,15 @@ const Profile = () => {
         <div className="p-3 sm:p-5 border hover:shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] flex flex-col">
           <div className="flex sm:mb-10 justify-between">
             <h2 className="font-semibold text-xl sm:text-3xl">Profile</h2>
-            <h3 className="font-semibold text-sm">Joined in 2023</h3>
+            <h3 className="font-semibold text-sm">
+              Joined in {moment(userInfo.createdAt).format("ll")}
+            </h3>
           </div>
           <div className="flex">
             {profile ? (
               <img
                 src={URL.createObjectURL(profile)}
-                className="ml-5 h-28 w-28 border p-1 border-[rgb(0,223,154)] rounded-full mb-4"
+                className="ml-5 h-28 w-28 border p-1 border-[rgb(0,223,154)] rounded-full mb-4 align-middle"
                 alt=""
               />
             ) : (
@@ -90,6 +113,13 @@ const Profile = () => {
               onChange={handleImageChange}
               className="hidden"
             />
+
+            <button
+              className={full ? "ml-2 py-2 px-3 bg-sky-500 h-10" : "hidden"}
+              onClick={upload}
+            >
+              Upload
+            </button>
           </div>
           <div className="flex justify-between">
             <div className="ml-3">

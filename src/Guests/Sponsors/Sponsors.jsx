@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import CustomLoader from "../components/CustomLoader";
 
 const Sponsors = () => {
-  const [investors, setInvestors] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { investors } = useOutletContext();
+  // const [investors, setInvestors] = useState([]);
+  // const [loading, setLoading] = useState(false);
 
-  const getInvestors = async () => {
-    setLoading(true);
-    await axiosClient.get("/users/investors").then((res) => {
-      setLoading(false);
-      setInvestors(res?.data?.users);
-    });
-  };
+  // const getInvestors = async () => {
+  //   setLoading(true);
+  //   await axiosClient.get("/users/investors").then((res) => {
+  //     setLoading(false);
+  //     setInvestors(res?.data?.users);
+  //   });
+  // };
 
   const itemsPerPage = 9;
   const [itemOffset, setItemOffset] = useState(0);
@@ -28,7 +29,7 @@ const Sponsors = () => {
   };
 
   useEffect(() => {
-    getInvestors();
+    // getInvestors();
   }, []);
   return (
     <div className="">
@@ -47,64 +48,64 @@ const Sponsors = () => {
         </div>
       </div>
       <div className="lg:w-[1200px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto px-3 sm:px-5 lg:px-24 py-10 text-center">
-        {loading ? (
+        {/* {loading ? (
           <CustomLoader />
-        ) : (
-          <>
-            {currentItems.length > 0 ? (
-              <>
-                {currentItems.map((i) => {
-                  return (
-                    <div className="flex flex-col border rounded-lg bg-white p-5">
-                      <div className="mx-auto">
-                        <img
-                          src=""
-                          alt=""
-                          className="h-24 w-24 rounded-full p-1 border-2 border-[rgb(0,223,154)]"
-                        />
-                      </div>
-                      <div className="mt-5">
-                        <h2 className="font-semibold mb-2">{i.name}</h2>
-                        {i.details ? (
-                          <>
-                            <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
-                              US${i.details.minimum} - US${i.details.maximum}
-                            </div>
-                            <p className="text-gray-700">
-                              {i.details.description
-                                .split(" ")
-                                .splice(0, 20)
-                                .join(" ")}
-                              ...
-                            </p>
-                          </>
-                        ) : (
-                          <>
-                            <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
-                              No Data
-                            </div>
-                            <p className="text-gray-700">No Description</p>
-                          </>
-                        )}
+        ) : ( */}
+        <>
+          {currentItems.length > 0 ? (
+            <>
+              {currentItems.map((i) => {
+                return (
+                  <div className="flex flex-col border rounded-lg bg-white p-5">
+                    <div className="mx-auto">
+                      <img
+                        src=""
+                        alt=""
+                        className="h-24 w-24 rounded-full p-1 border-2 border-[rgb(0,223,154)]"
+                      />
+                    </div>
+                    <div className="mt-5">
+                      <h2 className="font-semibold mb-2">{i.name}</h2>
+                      {i.details ? (
+                        <>
+                          <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                            US${i.details.minimum} - US${i.details.maximum}
+                          </div>
+                          <p className="text-gray-700">
+                            {i.details.description
+                              .split(" ")
+                              .splice(0, 20)
+                              .join(" ")}
+                            ...
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <div className="bg-[rgba(0,223,154,0.07)] font-semibold rounded-full my-2 p-2">
+                            No Data
+                          </div>
+                          <p className="text-gray-700">No Description</p>
+                        </>
+                      )}
 
-                        <div className="mt-5">
-                          <Link
-                            to={`/investors/${i._id}`}
-                            className="bg-[rgba(0,223,154,0.75)] hover:bg-[rgba(0,223,154,1)] py-2 px-3 text-white text-sm rounded"
-                          >
-                            Get in touch
-                          </Link>
-                        </div>
+                      <div className="mt-5">
+                        <Link
+                          to={`/investors/${i._id}`}
+                          className="bg-[rgba(0,223,154,0.75)] hover:bg-[rgba(0,223,154,1)] py-2 px-3 text-white text-sm rounded"
+                        >
+                          Get in touch
+                        </Link>
                       </div>
                     </div>
-                  );
-                })}
-              </>
-            ) : (
-              <></>
-            )}
-          </>
-        )}
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <></>
+          )}
+        </>
+        {/* )} */}
       </div>
       <div className="my-5">
         <ReactPaginate

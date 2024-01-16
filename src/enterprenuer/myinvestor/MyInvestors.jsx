@@ -15,7 +15,6 @@ const MyInvestors = () => {
       .get(`/enterpreneur/${userInfo._id}/investors`)
       .then((res) => {
         setLoading(false);
-        console.log(res?.data?.investors);
         setInvestors(res?.data?.investors);
       })
       .catch((err) => {

@@ -24,6 +24,7 @@ const ProjectForm = () => {
   const { id } = useParams();
   const { userInfo } = useSelector((state) => state.auth);
   const [detailsId, setDetailsId] = useState("");
+  const [error, setError] = useState("");
   const [memberIds, setMemberIds] = useState();
   const [loading, setLoading] = useState(false);
   const [teamMembers, setTeamMembers] = useState([]);
@@ -56,6 +57,14 @@ const ProjectForm = () => {
     project_id: "",
   });
 
+  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState("");
+
+  const [document, setDocument] = useState({
+    filename: "",
+    project_id: "",
+  });
+
   const [loadProject, setLoadProject] = useState(false);
   const [loadDetails, setLoadDetails] = useState(false);
   const [loadMember, setLoadMember] = useState(false);
@@ -72,7 +81,6 @@ const ProjectForm = () => {
     await axiosClient
       .get(`/projects/${id}`)
       .then((res) => {
-        console.log(res?.data?.project);
         setProj(res?.data?.project);
         const retrievedProject = res?.data?.project;
         const details = retrievedProject.details;
@@ -125,22 +133,12 @@ const ProjectForm = () => {
       });
   };
 
-  // const setLoad = () => {
-  //   let users = enterpreneurs;
-  //   console.log(users);
-  //   for (let i = 0; i <= users.length; i++) {
-  //     console.log(users[i]);
-  //   }
-  //   // users.forEach((u) => {
-  //   //   const nigga = { value: u._id, label: u.name };
-  //   //   setData((data) => [...data, nigga]);
-  //   //   console.log(data);
-  //   // });
-  // };
-
   const saveProject = async (e) => {
     e.preventDefault();
     if (id) {
+      if (userInfo.role == "Enterpreneur") {
+        proj.enterpreneur = userInfo._id;
+      }
       setLoadProject(true);
       await axiosClient
         .put(`/projects/${id}`, proj)
@@ -154,6 +152,9 @@ const ProjectForm = () => {
         });
     } else {
       setLoadProject(true);
+      if (userInfo.role == "Enterpreneur") {
+        proj.enterpreneur = userInfo._id;
+      }
       await axiosClient
         .post("/projects", proj)
         .then((res) => {
@@ -184,7 +185,6 @@ const ProjectForm = () => {
         });
     } else {
       setLoadDetails(true);
-      console.log(details);
       await axiosClient
         .post(`/details`, details)
         .then((res) => {
@@ -202,6 +202,9 @@ const ProjectForm = () => {
   const saveMember = async (e) => {
     e.preventDefault();
     setLoadMember(true);
+    if (proj._id != "") {
+      teamMember.project_id = proj._id;
+    }
     await axiosClient
       .post("/members", teamMember)
       .then((res) => {
@@ -213,6 +216,44 @@ const ProjectForm = () => {
       .catch((err) => {
         setLoadMember(false);
         toast.error(err?.response?.data?.message);
+      });
+  };
+
+  const handleFileChange = async (e) => {
+    const pickedFile = e.target.files[0];
+    console.log("first");
+    if (pickedFile.type != "application/pdf") {
+      setError("Please select pdf files only");
+    }
+    setFile(pickedFile);
+    setTimeout(() => {
+      setError("");
+    }, 3000);
+  };
+
+  const saveDocument = async (e) => {
+    e.preventDefault();
+    setLoadDoc(true);
+
+    const formData = new FormData();
+    formData.append("document", file);
+    formData.append("filename", document.filename);
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    await axiosClient
+      .post(`/documents/${proj._id}/project`, formData, config)
+      .then((res) => {
+        setLoadDoc(false);
+        toast.success(res?.data?.message);
+      })
+      .catch((err) => {
+        setLoadDoc(false);
+        toast.error(err?.data?.message);
       });
   };
 
@@ -237,8 +278,6 @@ const ProjectForm = () => {
 
   useEffect(() => {
     getEnterpreneurs();
-    // setLoad();
-    console.log(proj);
   }, []);
 
   return (
@@ -506,15 +545,15 @@ const ProjectForm = () => {
                       return (
                         <div className="w-full grid grid-cols-4 mb-2 border-b">
                           <div className="col-span-3 ">
-                            <div className="flex">
+                            <div className="flex gap-2">
                               <p className="w-[25%]">Name</p>
                               <p className="font-semibold">{member.name}</p>
                             </div>
-                            <div className="flex">
+                            <div className="flex gap-2">
                               <p className="w-[25%]">Position</p>
                               <p className="font-semibold">{member.position}</p>
                             </div>
-                            <div className="flex">
+                            <div className="flex gap-2">
                               <p className="w-[25%]">Description</p>
                               <p className="font-semibold">
                                 {member.description}
@@ -554,7 +593,7 @@ const ProjectForm = () => {
 
                     <div className={`${hidden ? "mt-5" : "hidden"}`}>
                       <h2 className="text-xl font-semibold mb-3 text-[rgba(0,223,154,0.65)]">
-                        Add Memmber
+                        Add Member
                       </h2>
                       <div className="flex flex-col mb-2">
                         <label htmlFor="">Name</label>
@@ -672,7 +711,7 @@ const ProjectForm = () => {
                       </div>
                       <div className="flex-col mb-2 hidden">
                         <label htmlFor="">Project</label>
-                        <input type="text" disabled value={proj._id} />
+                        <input type="text" value={proj._id} />
                       </div>
                       {/* {usersSelect} */}
                       <div className="">
@@ -692,15 +731,49 @@ const ProjectForm = () => {
             <TabPanel>
               <h2 className="font-semibold mb-3">Documents</h2>
               <div className="">
-                <form>
+                <form enctype="multipart/form-data">
                   <div className="flex flex-col mb-2">
-                    <label htmlFor="">Project Name</label>
+                    <label htmlFor="">Document Name</label>
                     <input
                       type="text"
                       className="border p-2"
-                      placeholder="Enter your project name"
-                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your document title"
+                      onChange={(e) =>
+                        setDocument({ ...document, filename: e.target.value })
+                      }
                     />
+                  </div>
+                  <div className="flex flex-col mb-2">
+                    <label htmlFor="">
+                      Choose Document
+                      <span className="ml-2 text-xs text-[rgb(0,223,154)]">
+                        (PDF files only)
+                      </span>
+                    </label>
+                    <p
+                      className={`${
+                        error == "" ? "hidden" : "text-red-500 text-xs"
+                      }`}
+                    >
+                      {error}
+                    </p>
+                    <input
+                      type="file"
+                      className="border p-2"
+                      placeholder="Enter your project name"
+                      onChange={(e) => {
+                        handleFileChange(e);
+                      }}
+                    />
+                  </div>
+                  <div className="">
+                    <button
+                      type="submit"
+                      className="bg-[rgb(0,223,154)] py-2 w-full text-white"
+                      onClick={saveDocument}
+                    >
+                      {loadDoc ? "...Loading" : <>Save Document</>}
+                    </button>
                   </div>
                 </form>
               </div>

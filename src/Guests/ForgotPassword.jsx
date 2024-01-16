@@ -17,7 +17,6 @@ const ForgotPassword = () => {
         .post(`/reset-password`, { email })
         .then((res) => {
           setLoading(false);
-          console.log(res);
           toast.success("Reset email sent");
         })
         .catch((err) => {

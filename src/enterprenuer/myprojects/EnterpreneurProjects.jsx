@@ -55,7 +55,7 @@ const EnterpreneurProjects = () => {
             </Link>
           </div>
           {projects.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 py-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 py-3 my-5 p-5 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
               {projects.map((project) => {
                 return (
                   <div
@@ -118,7 +118,9 @@ const EnterpreneurProjects = () => {
                             className="text-green-500"
                           />
                         </Link>
-                        <Link to={`/enterpreneur/projects/edit/${project._id}`}>
+                        <Link
+                          to={`/enterpreneur/myprojects/edit/${project._id}`}
+                        >
                           <AiOutlineEdit
                             size={22}
                             title="Edit"

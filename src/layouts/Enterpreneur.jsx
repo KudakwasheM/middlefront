@@ -47,10 +47,14 @@ const Enterpreneur = () => {
         case "Enterpreneur":
           navigate("/enterpreneur/dashboard");
           break;
+        case "Admin":
+          navigate("/admin/dashboard");
+          break;
         case "Investor":
-          navigate("/investor/dashboard");
+          navigate("/");
           break;
         default:
+          navigate("/");
           break;
       }
     }

@@ -42,11 +42,14 @@ const Administration = () => {
     } else {
       const role = userInfo.role;
       switch (role) {
+        case "Admin":
+          navigate("/admin/dashboard");
+          break;
         case "Enterpreneur":
           navigate("/enterpreneur/dashboard");
           break;
         case "Investor":
-          navigate("/investor/dashboard");
+          navigate("/");
           break;
         default:
           break;

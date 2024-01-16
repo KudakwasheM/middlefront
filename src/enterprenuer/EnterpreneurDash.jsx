@@ -44,7 +44,7 @@ const EnterpreneurDash = () => {
       const fundsResponse = await axiosClient.get(
         `/enterpreneur/${userInfo._id}/funds`
       );
-      console.log(fundsResponse?.data?.funds);
+
       setFunds(fundsResponse?.data?.funds.splice(-4));
       const theFunds = fundsResponse?.data?.funds;
       setFundsSum(theFunds.reduce((total, fund) => total + fund.amount, 0));
@@ -211,7 +211,7 @@ const EnterpreneurDash = () => {
                               />
                             </Link>
                             <Link
-                              to={`/enterpreneur/projects/edit/${project._id}`}
+                              to={`/enterpreneur/myprojects/edit/${project._id}`}
                             >
                               <AiOutlineEdit
                                 size={22}

@@ -1,30 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Testimonial from "../components/Testimonial";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import axiosClient from "../../axiosClient";
 
 const Testimonials = () => {
-  const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { testimonials } = useOutletContext();
 
-  const getTestimonials = async () => {
-    setLoading(true);
-    await axiosClient
-      .get("/testimonials")
-      .then((res) => {
-        setLoading(false);
-        setTestimonials(res?.data?.testimonials);
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err?.response?.data?.message);
-      });
-  };
-
-  useEffect(() => {
-    getTestimonials();
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="bg-[rgba(0,223,154,0.05)] py-10">
       <div className="max-w-[1200px] mx-auto text-center flex flex-col">

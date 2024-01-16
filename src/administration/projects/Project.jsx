@@ -10,13 +10,29 @@ const Project = () => {
   const { id } = useParams();
   const { userInfo } = useSelector((state) => state.auth);
   const [project, setProject] = useState({});
+  const [documents, setDocuments] = useState([]);
+  const [filename, setFilename] = useState("");
   const [loading, setLoading] = useState(false);
 
   const getProject = async () => {
     await axiosClient.get(`/projects/${id}`).then((res) => {
-      console.log(res?.data?.project);
       setProject(res?.data?.project);
     });
+  };
+
+  const getDocuments = async () => {
+    setLoading(true);
+    await axiosClient
+      .get(`/documents/project/${id}`)
+      .then((res) => {
+        setLoading(false);
+        setDocuments(res.data.files);
+        console.log(res);
+      })
+      .catch((e) => {
+        setLoading(false);
+        console.log(e);
+      });
   };
 
   const publish = async (e) => {
@@ -37,8 +53,15 @@ const Project = () => {
       });
   };
 
+  const openfile = async (file) => {
+    await axiosClient.get(`/documents/project/${id}/${file}`).then((res) => {
+      console.log(res);
+    });
+  };
+
   useEffect(() => {
     getProject();
+    getDocuments();
   }, []);
   return (
     <>
@@ -59,13 +82,23 @@ const Project = () => {
                 )}
               </div>
               )
-              <Link to={`/enterpreneur/myprojects/edit/${project._id}`}>
-                <AiOutlineEdit
-                  size={22}
-                  title="Edit"
-                  className="text-green-500"
-                />
-              </Link>
+              {userInfo.role === "Admin" ? (
+                <Link to={`/admin/projects/edit/${project._id}`}>
+                  <AiOutlineEdit
+                    size={22}
+                    title="Edit"
+                    className="text-green-500"
+                  />
+                </Link>
+              ) : (
+                <Link to={`/enterpreneur/myprojects/edit/${project._id}`}>
+                  <AiOutlineEdit
+                    size={22}
+                    title="Edit"
+                    className="text-green-500"
+                  />
+                </Link>
+              )}
             </div>
             {userInfo.role == "Admin" ? (
               <button
@@ -140,7 +173,22 @@ const Project = () => {
               </div>
               <div className="p-3 border mb-5">
                 <h3 className="font-semibold text-xl mb-2">Documents</h3>
-                <p className="italic">{}</p>
+                {documents.length > 0 ? (
+                  <div className="flex flex-wrap ml-2 gap-5">
+                    {documents.map((d) => {
+                      return (
+                        <button
+                          onClick={() => openfile(d.filename)}
+                          className="p-1 rounded-full border"
+                        >
+                          <p className="text-sm">{d.filename}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="text-red-500">No Documents Found</div>
+                )}
               </div>
               <div className="p-3 border mb-5">
                 <h3 className="font-semibold text-xl mb-2">The Team</h3>

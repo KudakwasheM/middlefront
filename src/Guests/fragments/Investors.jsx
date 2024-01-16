@@ -1,30 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { GoLocation } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
 import axiosClient from "../../axiosClient";
 
 const Investors = () => {
-  const [investors, setInvestors] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { investors } = useOutletContext();
 
-  const getInvestors = async () => {
-    setLoading(true);
-    await axiosClient
-      .get("/users/investors/published")
-      .then((res) => {
-        setLoading(false);
-        setInvestors(res?.data?.users.splice(-3));
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err?.response?.data?.message);
-      });
-  };
-
-  useEffect(() => {
-    getInvestors();
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="bg-[rgba(0,223,154,0.05)]">
       <div className=" py-10 max-w-[1200px] mx-auto">

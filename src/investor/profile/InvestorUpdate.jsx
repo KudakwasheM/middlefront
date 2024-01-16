@@ -28,7 +28,6 @@ const InvestorUpdate = () => {
       })
       .then((res) => {
         setLoading(false);
-        console.log(res);
         toast.success(res?.data?.message);
         navigate("/investor/profile");
       })

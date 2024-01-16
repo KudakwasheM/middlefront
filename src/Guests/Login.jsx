@@ -42,6 +42,7 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     await axiosClient
       .post("/login", { email, password })
       .then((res) => {

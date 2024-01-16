@@ -199,13 +199,13 @@ const Investors = () => {
                             </div>
                           </div>
                           <div className="flex justify-around border-t pt-3 mt-3">
-                            {/* <Link to={`/admin/investors/${investorr._id}`}>
+                            <Link to={`/admin/investors/${investorr._id}`}>
                               <AiOutlineEye
                                 size={22}
                                 title="View"
                                 className="text-green-500"
                               />
-                            </Link> */}
+                            </Link>
                             <button
                               onClick={() => deleteInvestor(investorr._id)}
                             >

@@ -1,39 +1,42 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../axiosClient";
 import { toast } from "react-toastify";
+import { useOutletContext } from "react-router-dom";
 
 const Testimonials = () => {
-  const [testimonials, setTestimonials] = useState([]);
-  const [hex, setHex] = useState("#ffffff");
+  const { testimonials } = useOutletContext();
   const [newArray, setNewArray] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [testimonials, setTestimonials] = useState([]);
+  // const [hex, setHex] = useState("#ffffff");
+  // const [loading, setLoading] = useState(false);
 
-  const getTestimonials = async () => {
-    setLoading(true);
-    await axiosClient
-      .get("/testimonials")
-      .then((res) => {
-        setTestimonials(res?.data?.testimonials);
-        randomizeColor(res?.data?.testimonials);
-      })
-      .catch((err) => {
-        toast.error(err?.response?.data?.message);
-      });
-  };
+  // const getTestimonials = async () => {
+  //   setLoading(true);
+  //   await axiosClient
+  //     .get("/testimonials")
+  //     .then((res) => {
+  //       setTestimonials(res?.data?.testimonials);
+  //       randomizeColor(res?.data?.testimonials);
+  //     })
+  //     .catch((err) => {
+  //       toast.error(err?.response?.data?.message);
+  //     });
+  // };
 
-  const randomizeColor = (test) => {
-    const t = [];
-    for (let i = 0; i < test.length; i++) {
+  const randomizeColor = (data) => {
+    const d = [];
+    for (let i = 0; i < data.length; i++) {
       const randomColor =
         "#" + Math.floor(Math.random() * 16777215).toString(16);
-      test[i].color = randomColor;
-      t.push(test[i]);
+      data[i].color = randomColor;
+      d.push(data[i]);
     }
-    setNewArray(t);
+    setNewArray(d);
   };
 
   useEffect(() => {
-    getTestimonials();
+    // getTestimonials();
+    randomizeColor(testimonials);
   }, []);
 
   return (
